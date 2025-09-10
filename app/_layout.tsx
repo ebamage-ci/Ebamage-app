@@ -1,0 +1,91 @@
+import "@/app/global.css";
+import { useAppFocusManager } from "@/hooks/useAppFocusManager";
+import { useOnlineManager } from "@/hooks/useOnlineManager";
+import { useAuthClientStore } from "@/stores/useAuthClient.store";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect, useState } from "react";
+import "react-native-reanimated";
+
+// Empêche le splash screen de se cacher automatiquement
+SplashScreen.preventAutoHideAsync();
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 2,
+    },
+  },
+});
+
+export default function RootLayout() {
+  const [isAppReady, setIsAppReady] = useState(false);
+
+  const [fontsLoaded] = useFonts({
+    "Montserrat-Bold": require("../assets/fonts/Montserrat-Bold.ttf"),
+    "Montserrat-Regular": require("../assets/fonts/Montserrat-Regular.ttf"),
+    "Montserrat-SemiBold": require("../assets/fonts/Montserrat-SemiBold.ttf"),
+    "Montserrat-Medium": require("../assets/fonts/Montserrat-Medium.ttf"),
+    "Montserrat-Light": require("../assets/fonts/Montserrat-Light.ttf"),
+    "Montserrat-ExtraBold": require("../assets/fonts/Montserrat-ExtraBold.ttf"),
+
+    "Raleway-Bold": require("../assets/fonts/Raleway-Bold.ttf"),
+    "Raleway-Regular": require("../assets/fonts/Raleway-Regular.ttf"),
+    "Raleway-SemiBold": require("../assets/fonts/Raleway-SemiBold.ttf"),
+    "Raleway-Medium": require("../assets/fonts/Raleway-Medium.ttf"),
+    "Raleway-Light": require("../assets/fonts/Raleway-Light.ttf"),
+    "Raleway-ExtraBold": require("../assets/fonts/Raleway-ExtraBold.ttf"),
+  });
+
+  const { loadAuth, isConnected: isClientConnected } = useAuthClientStore();
+
+  useAppFocusManager();
+  useOnlineManager();
+
+  useEffect(() => {
+    const prepare = async () => {
+      try {
+        await loadAuth();
+      } catch (e: any) {
+        console.warn("Auth Load Error:", e?.message);
+      } finally {
+        setIsAppReady(true);
+      }
+    };
+
+    prepare();
+  }, [loadAuth]);
+
+  // Masquer le splash quand fonts + app prêtes
+  useEffect(() => {
+    if (fontsLoaded && isAppReady) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, isAppReady]);
+
+  // Tant que ce n’est pas prêt, on ne render rien
+  if (!fontsLoaded || !isAppReady) {
+    return null;
+  }
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Protected guard={isClientConnected}>
+          <Stack.Screen name="(root-client)" options={{ headerShown: false }} />
+        </Stack.Protected>
+
+        <Stack.Protected guard={!isClientConnected}>
+          <Stack.Screen name="auth" options={{ headerShown: false }} />
+        </Stack.Protected>
+
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </QueryClientProvider>
+  );
+}
