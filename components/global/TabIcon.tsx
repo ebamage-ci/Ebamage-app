@@ -4,23 +4,24 @@ type TabIconProps = {
   focused: boolean;
   icon: ImageSourcePropType;
   label: string;
+  iconFocused?: ImageSourcePropType;
 };
 
-const TabIcon = ({ focused, icon, label }: TabIconProps) => {
+const TabIcon = ({ focused, icon, iconFocused, label }: TabIconProps) => {
   return (
     <View className="flex-1 self-center  h-full  flex-col items-center">
       <View
-        style={
-          label === "cart" && !focused
-            ? {
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }
-            : {}
-        }
+        // style={
+        //   label === "cart" && !focused
+        //     ? {
+        //         shadowColor: "#000",
+        //         shadowOffset: { width: 0, height: 2 },
+        //         shadowOpacity: 0.25,
+        //         shadowRadius: 3.84,
+        //         elevation: 5,
+        //       }
+        //     : {}
+        // }
         className={`items-center ${
           label === "cart"
             ? ` p-2 rounded-full absolute z-10 -bottom-5 h-[65px] w-[65px] justify-center ${
@@ -29,7 +30,7 @@ const TabIcon = ({ focused, icon, label }: TabIconProps) => {
             : `${focused ? "" : ""}`
         }`}>
         <Image
-          source={icon}
+          source={focused ? iconFocused : icon}
           resizeMode="contain"
           className="size-6"
           tintColor={

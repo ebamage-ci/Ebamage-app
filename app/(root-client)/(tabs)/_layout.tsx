@@ -32,7 +32,12 @@ export default function TabsLayout() {
           tabBarHideOnKeyboard: true,
           // headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.hometab} label="accueil" />
+            <TabIcon
+              focused={focused}
+              icon={icons.hometab}
+              label="accueil"
+              iconFocused={icons.hometabFocused}
+            />
           ),
           tabBarButton: (props) => <CustomTabBarButtonIcon {...props} />,
 
@@ -53,7 +58,12 @@ export default function TabsLayout() {
           tabBarButton: (props) => <CustomTabBarButtonIcon {...props} />,
 
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.carttab} label="Panier" />
+            <TabIcon
+              focused={focused}
+              icon={icons.carttab}
+              label="Panier"
+              iconFocused={icons.carttabFocused}
+            />
           ),
         }}
       />
@@ -70,6 +80,7 @@ export default function TabsLayout() {
               focused={focused}
               icon={icons.settingstab}
               label="parametres"
+              iconFocused={icons.settingstabFocused}
             />
           ),
         }}

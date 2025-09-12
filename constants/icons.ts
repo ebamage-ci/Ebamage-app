@@ -1,9 +1,13 @@
 // tabs
 import carttab from "@/assets/icons/carttab.png";
+import carttabFocused from "@/assets/icons/carttabFocused.png";
+
 import favtab from "@/assets/icons/favtab.png";
 import hometab from "@/assets/icons/hometab.png";
+import hometabFocused from "@/assets/icons/hometabFocused.png";
 import livetab from "@/assets/icons/livetab.png";
 import settingstab from "@/assets/icons/settingstab.png";
+import settingstabFocused from "@/assets/icons/settingstabFocused.png";
 
 //others
 import arroba from "@/assets/icons/arroba.png";
@@ -29,9 +33,12 @@ import wallet from "@/assets/icons/wallet.png";
 
 export default {
   hometab,
+  hometabFocused,
   carttab,
+  carttabFocused,
   favtab,
   settingstab,
+  settingstabFocused,
   livetab,
   user,
   phone,
