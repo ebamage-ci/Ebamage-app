@@ -3,6 +3,7 @@ import { Tabs } from "expo-router";
 import CustomTabBarButtonIcon from "@/components/global/CustomTabBarButtonIcon";
 import TabIcon from "@/components/global/TabIcon";
 import HeaderIndex from "@/components/index/HeaderIndex";
+import HeaderSetting from "@/components/settings/HeaderSetting";
 import icons from "@/constants/icons";
 
 export default function TabsLayout() {
@@ -74,7 +75,7 @@ export default function TabsLayout() {
           title: "settings",
           tabBarHideOnKeyboard: true,
           tabBarButton: (props) => <CustomTabBarButtonIcon {...props} />,
-          headerShown: false,
+          // headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon
               focused={focused}
@@ -83,6 +84,9 @@ export default function TabsLayout() {
               iconFocused={icons.settingstabFocused}
             />
           ),
+          header: () => {
+            return <HeaderSetting />;
+          },
         }}
       />
     </Tabs>

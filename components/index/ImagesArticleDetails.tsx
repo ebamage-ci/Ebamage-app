@@ -103,7 +103,7 @@ function ImagesArticleDetails({ images }: carouselProps) {
         onPress={onPressPagination}
         size={10}
         activeDotStyle={{
-          backgroundColor: "#F83758",
+          backgroundColor: "green",
           width: 12,
           height: 12,
         }}

@@ -53,7 +53,7 @@ const ArticleDetailsScreen = () => {
       className="flex-1"
       contentContainerStyle={{
         flexGrow: 1,
-        paddingBottom: 25,
+        paddingBottom: 5,
       }}>
       <View style={styles.container} className="px-5 py-2 ">
         {/** carousel catalog */}
@@ -121,11 +121,11 @@ const ArticleDetailsScreen = () => {
               {data?.data.old_price} FCFA
             </Text>
           )}
-          <Text className="text-[14px] font-raleway-medium ">
+          <Text className="text-[20px] font-raleway-medium ">
             {data?.data.prix} FCFA
           </Text>
           {data?.data.old_price && (
-            <Text className=" font-raleway-medium text-primary ">
+            <Text className=" text-[16px] font-raleway-medium text-primary ">
               {-getDiscount(data?.data.prix, data?.data.old_price)}%
             </Text>
           )}
@@ -157,7 +157,7 @@ const ArticleDetailsScreen = () => {
         </View>
 
         {/** similar */}
-        <View className="my-2">
+        <View className="my-2 ">
           <View className="mb-3">
             <Text className="font-raleway-semibold text-[20px]">Similaire</Text>
             <Text className="font-raleway-semibold text-[16px]">

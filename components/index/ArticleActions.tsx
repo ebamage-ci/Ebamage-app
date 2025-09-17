@@ -1,5 +1,4 @@
 import { IArticleDetailResponseClient } from "@/types/articleDetailClient.type";
-import Feather from "@expo/vector-icons/Feather";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
 
@@ -90,10 +89,10 @@ const ArticleActions = ({
           activeOpacity={isPending ? 1 : 0.8}
           onPress={handleAddToCart}
           disabled={isPending}
-          className={`w-[78%] flex-row gap-2 rounded p-1 items-center justify-center ${
+          className={`w-full flex-row gap-2 rounded p-1 items-center justify-center ${
             isPending ? "bg-primary/50" : "bg-primary"
           }`}>
-          <MaterialCommunityIcons name="cart-outline" size={24} color="white" />
+          <MaterialCommunityIcons name="cart-outline" size={20} color="white" />
           <Text
             className="font-raleway-semibold text-white text-[19px] "
             numberOfLines={1}
@@ -102,15 +101,15 @@ const ArticleActions = ({
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           activeOpacity={0.6}
           className=" w-[20%] border-2 border-primary rounded-[10px] p-1 items-center justify-center ">
           <Feather name="phone" size={24} color="#FF3D00" />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       {/** chat */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         activeOpacity={0.8}
         className="  w-full h-[60px]  flex-row rounded p-1 items-center justify-between bg-primary-200  ">
         <Feather name="message-square" size={36} color="black" />
@@ -120,7 +119,7 @@ const ArticleActions = ({
           ellipsizeMode="tail">
           Chat avec le service client
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

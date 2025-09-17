@@ -30,10 +30,10 @@ const HeaderSearch = () => {
           onChangeText={setSearchQuery}
           value={searchQuery}
           iconColor="#797979"
-          elevation={1}
+          elevation={0}
           autoFocus={true}
           inputStyle={{
-            color: "back",
+            color: "black",
             fontWeight: "500",
             fontSize: 14,
             fontFamily: "Raleway-Regular",
@@ -42,10 +42,10 @@ const HeaderSearch = () => {
           onIconPress={() => router.back()}
           onSubmitEditing={handleSearchSubmit}
           style={{
-            backgroundColor: "#FFFFFF",
-            borderColor: "#797979",
+            backgroundColor: "#F8F8F8",
+            borderColor: "#707070",
             borderWidth: 0.2,
-            borderRadius: 6,
+            borderRadius: 20,
           }}
           clearIcon={icons.cancel}
           placeholderTextColor={"#BBBBBB"}
