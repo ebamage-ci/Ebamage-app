@@ -1,13 +1,16 @@
 import { images } from "@/constants/Images";
-import {
-  articleItemCart,
-  IListCartResponseClient,
-  variation,
-} from "@/types/articlesCartClient.type";
+import { articleItemCart, variation } from "@/types/articlesCartClient.type";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { memo, useCallback, useMemo } from "react";
-import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import { queryClient } from "@/app/_layout";
 import { useClientDecrementArticleCart } from "@/hooks/useClientDecrementArticleCart";
@@ -16,14 +19,11 @@ import { useClientIncrementArticleCart } from "@/hooks/useClientIncrementArticle
 import { useAuthClientStore } from "@/stores/useAuthClient.store";
 import { useLocalCartArticlesClient } from "@/stores/useLocalCartArticlesClient.store";
 
-// ========== Composant principal ==========
 const CartArticleItem = ({ article }: { article: articleItemCart }) => {
   const { mutate: mutateIncrementArticle, isPending: isPendingIncrement } =
     useClientIncrementArticleCart();
-
   const { mutate: mutateDecrementArticle, isPending: isPendingDecrement } =
     useClientDecrementArticleCart();
-
   const { mutate: mutateDeleteArticle, isPending: isPendingDelete } =
     useClientDeleteArticleCart();
 
@@ -41,31 +41,16 @@ const CartArticleItem = ({ article }: { article: articleItemCart }) => {
     hashid_panier_item,
   } = article;
 
-  //--> increment
+  // ----- actions panier -----
   const addQty = useCallback(() => {
     mutateIncrementArticle(
-      {
-        data: {
-          hashid_panier_item,
-        },
-        token: user?.token || "",
-      },
+      { data: { hashid_panier_item }, token: user?.token || "" },
       {
         onSuccess: (data) => {
-          // console.log(
-          //   "-- data increment success ----> ",
-          //   JSON.stringify(data, null, 2)
-          // );
-
           setCart(data.cart);
           setIdPanier(data.id_panier);
-
-          queryClient.setQueryData(
-            ["cart", "client"],
-            (oldData: IListCartResponseClient) => data
-          );
+          queryClient.setQueryData(["cart", "client"], () => data);
         },
-
         onError: (error) => {
           Alert.alert(
             "Erreur",
@@ -82,35 +67,19 @@ const CartArticleItem = ({ article }: { article: articleItemCart }) => {
     user?.token,
   ]);
 
-  //--> decrement
-
   const removeQty = useCallback(() => {
     mutateDecrementArticle(
-      {
-        data: {
-          hashid_panier_item,
-        },
-        token: user?.token || "",
-      },
+      { data: { hashid_panier_item }, token: user?.token || "" },
       {
         onSuccess: (data) => {
-          // console.log(
-          //   "-- data decrement success ----> ",
-          //   JSON.stringify(data, null, 2)
-          // );
           setCart(data.cart);
           setIdPanier(data.id_panier);
-
-          queryClient.setQueryData(
-            ["cart", "client"],
-            (oldData: IListCartResponseClient) => data
-          );
+          queryClient.setQueryData(["cart", "client"], () => data);
         },
-
         onError: (error) => {
           Alert.alert(
             "Erreur",
-            error.message || "Impossible de diminuer la quantité de l'article"
+            error.message || "Impossible de diminuer la quantité"
           );
         },
       }
@@ -123,31 +92,15 @@ const CartArticleItem = ({ article }: { article: articleItemCart }) => {
     user?.token,
   ]);
 
-  //--> delete article
   const onDelete = useCallback(() => {
     mutateDeleteArticle(
-      {
-        data: {
-          hashid_panier_item,
-        },
-        token: user?.token || "",
-      },
+      { data: { hashid_panier_item }, token: user?.token || "" },
       {
         onSuccess: (data) => {
-          // console.log(
-          //   "-- data delete success ----> ",
-          //   JSON.stringify(data, null, 2)
-          // );
-
           resetCart();
           setIdPanier(data.id_panier);
-
-          queryClient.setQueryData(
-            ["cart", "client"],
-            (oldData: IListCartResponseClient) => data
-          );
+          queryClient.setQueryData(["cart", "client"], () => data);
         },
-
         onError: (error) => {
           Alert.alert(
             "Erreur",
@@ -159,131 +112,122 @@ const CartArticleItem = ({ article }: { article: articleItemCart }) => {
   }, [
     hashid_panier_item,
     mutateDeleteArticle,
-    // setCart,
     setIdPanier,
     user?.token,
     resetCart,
   ]);
 
-  // ========== Child: ChoiceItem ==========
-  const ChoiceItem = ({ choice }: { choice: variation }) => {
-    if (
-      choice.nom_variation.toLowerCase() === "color" ||
-      choice.nom_variation.includes("color")
-    ) {
-      return (
-        <View className="flex-row items-center self-start bg-gray-200 rounded my-1 px-2 py-1">
-          <Text className="font-raleway text-[14px]">
-            {choice.nom_variation} :{" "}
+  // ----- sous-composants -----
+  const ChoiceItem = ({ choice }: { choice: variation }) => (
+    <View className="flex-row items-center bg-gray-200 rounded-full px-3 py-1 mr-2 mb-2">
+      {choice.nom_variation.toLowerCase().includes("color") ? (
+        <>
+          <Text className="font-raleway text-[13px]">
+            {choice.nom_variation} :
           </Text>
           <View
             style={{ backgroundColor: choice.lib_variation }}
-            className="w-5 h-5 rounded-full ml-1"
+            className="w-4 h-4 rounded-full ml-2"
           />
-        </View>
-      );
-    }
+        </>
+      ) : (
+        <>
+          <Text className="font-raleway text-[13px]">
+            {choice.nom_variation} :
+          </Text>
+          <Text
+            className="font-raleway-medium text-[13px] ml-1 max-w-[80px]"
+            numberOfLines={1}>
+            {choice.lib_variation}
+          </Text>
+        </>
+      )}
+    </View>
+  );
 
-    return (
-      <View className="flex-row items-center self-start bg-gray-200 rounded my-1 px-2 py-1">
-        <Text className="font-raleway text-[14px]">
-          {choice.nom_variation} :{" "}
-        </Text>
-        <Text
-          className="font-raleway-medium text-[14px] ml-1 flex-1"
-          ellipsizeMode="tail"
-          numberOfLines={1}>
-          {choice.lib_variation}
-        </Text>
-      </View>
-    );
-  };
-
-  const ChoiceItemMemo = memo(ChoiceItem);
-
-  // choices
   const renderedChoices = useMemo(
     () =>
       variations.map((choice, index) => (
-        <ChoiceItemMemo key={index.toString()} choice={choice} />
+        <ChoiceItem key={index.toString()} choice={choice} />
       )),
-    [variations, ChoiceItemMemo]
+    [variations]
   );
 
-  // ========== Child: Quantity ==========
-  const Quantity = () => {
-    // const [quantity, setQuantity] = useState(quantite);
-
-    return (
-      <View className="flex-row items-center self-start bg-gray-200 rounded px-2 py-1 my-2 justify-between">
-        <Text className="font-raleway text-[14px]">Qté :</Text>
-        <View className="flex-row items-center gap-2 ml-2">
-          <TouchableOpacity
-            disabled={quantite <= 1 || isPending}
-            onPress={removeQty}
-            className="items-center justify-center">
-            <Ionicons
-              name="remove-circle-outline"
-              size={18}
-              color={isPending || quantite <= 1 ? "#B6B09F" : "#FF3B30"}
-            />
-          </TouchableOpacity>
-          <Text className="font-raleway-medium text-[14px]">{quantite}</Text>
-          <TouchableOpacity
-            disabled={quantite >= 10 || isPending}
-            onPress={addQty}
-            className="items-center justify-center">
-            <Ionicons
-              name="add-circle-outline"
-              size={18}
-              color={isPending || quantite >= 10 ? "#B6B09F" : "#000"}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
-
-  const QuantityMemo = memo(Quantity);
-
+  // ----- rendu -----
   return (
     <View
-      className={`flex-row rounded-2xl overflow-hidden border-2  w-full ${
-        isPending ? "border-gray-300" : "border-primary-300"
-      }`}>
+      style={{
+        borderRadius: 16,
+        backgroundColor: "#fff",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.08,
+        shadowRadius: 6,
+        elevation: 3,
+        marginVertical: 8,
+      }}
+      className="flex-row overflow-hidden">
+      {/** image produit */}
       <Image
         source={image ? { uri: image } : images.imgarticleitem}
-        className="w-2/5 h-full"
+        className="w-28 h-28 rounded-l-2xl"
         resizeMode="cover"
       />
-      <View className="py-4 px-3 w-3/5">
-        <Text className="font-raleway-medium text-[16px] mb-2">
-          {nom_article}
-        </Text>
 
-        {/* Choices */}
-        <View>{renderedChoices}</View>
-
-        {/* Quantity */}
-        <QuantityMemo />
-
-        {/* price - delete */}
-        <View className="flex-row justify-between items-center mt-2">
-          <Text className="font-raleway-semibold text-[16px]">
-            {prix_avec_quantite} FCFA
+      {/** contenu */}
+      <View className="flex-1 p-3">
+        {/** titre + delete */}
+        <View className="flex-row justify-between items-start mb-2">
+          <Text
+            className="font-raleway-semibold text-[15px] flex-1"
+            numberOfLines={2}
+            ellipsizeMode="tail">
+            {nom_article}
           </Text>
-          <TouchableOpacity
-            onPress={onDelete}
-            disabled={isPending}
-            className={`border-2  rounded-full p-1 ${
-              isPending ? "border-gray-300" : "border-primary-300"
-            }`}>
+          <TouchableOpacity onPress={onDelete} disabled={isPending}>
             <MaterialCommunityIcons
               name="trash-can-outline"
               size={22}
               color={isPending ? "#B6B09F" : "#FF3B30"}
             />
           </TouchableOpacity>
+        </View>
+
+        {/** variations scrollables */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          className="mb-2">
+          {renderedChoices}
+        </ScrollView>
+
+        {/** quantité + prix */}
+        <View className="flex-row justify-between items-center mt-auto">
+          <View className="flex-row items-center gap-2">
+            <TouchableOpacity
+              disabled={quantite <= 1 || isPending}
+              onPress={removeQty}>
+              <Ionicons
+                name="remove-circle-outline"
+                size={20}
+                color={isPending || quantite <= 1 ? "#B6B09F" : "#FF3B30"}
+              />
+            </TouchableOpacity>
+            <Text className="font-raleway-medium text-[14px]">{quantite}</Text>
+            <TouchableOpacity
+              disabled={quantite >= 10 || isPending}
+              onPress={addQty}>
+              <Ionicons
+                name="add-circle-outline"
+                size={20}
+                color={isPending || quantite >= 10 ? "#B6B09F" : "#000"}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <Text className="font-raleway-bold text-[15px] text-primary-500">
+            {prix_avec_quantite} FCFA
+          </Text>
         </View>
       </View>
     </View>

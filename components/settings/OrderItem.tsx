@@ -4,8 +4,26 @@ import { router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const OrderItem = ({ order }: { order: IOrder }) => {
-  const { created_at, hashid, nombre_articles, prix_total_articles, statut } =
-    order;
+  const { created_at, hashid, nombre_articles, prix_total, statut } = order;
+
+  // console.log("-- order -- ", order);
+
+  const getStatusColor = (statut?: string) => {
+    switch (statut) {
+      case "En attente":
+        console.log("attente");
+        return "#F59E0B"; // orange
+      case "En cours":
+        return "#2563EB"; // bleu
+      case "Livrée":
+        return "#16A34A"; // vert
+      case "Annulée":
+        return "#DC2626"; // rouge
+      default:
+        console.log("default", statut);
+        return "#777E90"; // gris par défaut
+    }
+  };
 
   const onOrderClickHandler = () => {
     router.push(`/extends/OrderDetailsScreen?id=${hashid}`);
@@ -61,14 +79,18 @@ const OrderItem = ({ order }: { order: IOrder }) => {
               Montant :
             </Text>
             <Text className="font-raleway-bold text-[13px]">
-              {prix_total_articles ?? 0} FCFA
+              {prix_total ?? 0} FCFA
             </Text>
           </View>
         </View>
 
         {/** status + detail */}
         <View className="flex flex-row justify-between items-center">
-          <Text className="text-[#CF6212] font-raleway-bold text-[15px]">
+          <Text
+            className={`font-raleway-bold text-[15px] `}
+            style={{
+              color: getStatusColor(statut),
+            }}>
             {statut ?? "STATUT"}
           </Text>
 

@@ -45,7 +45,7 @@ const DeliveryScreen = () => {
   }, [selectedCity]);
 
   // payment mode state
-  const [option, setOption] = useState<"opt1" | "opt2">("opt1");
+  const [option, setOption] = useState<"opt1" | "opt2">("opt2");
 
   // cities
   const cities =
@@ -189,13 +189,15 @@ const DeliveryScreen = () => {
             onValueChange={(value) => setOption(value as "opt1" | "opt2")}
             value={option}>
             <View className="flex-row my-6 justify-center ">
-              <RadioButton.Item
+              {/** money mobile */}
+
+              {/* <RadioButton.Item
                 mode="android"
-                label="TDLPay"
-                color="#F83758"
-                rippleColor="#F83758"
+                label="Mobile money"
+                color="#34A853"
+                rippleColor="#34A853"
                 labelStyle={{
-                  color: option === "opt1" ? "#F83758" : "black",
+                  color: option === "opt1" ? "#34A853" : "black",
                   fontFamily:
                     option === "opt1"
                       ? "Montserrat-Medium"
@@ -204,21 +206,21 @@ const DeliveryScreen = () => {
                 }}
                 position="leading"
                 value="opt1"
-              />
+              /> */}
               <RadioButton.Item
                 label="à la livraison"
                 value="opt2"
                 labelStyle={{
-                  color: option === "opt2" ? "#F83758" : "black",
+                  color: option === "opt2" ? "#34A853" : "black",
                   fontFamily:
                     option === "opt2"
                       ? "Montserrat-Medium"
                       : "Montserrat-ExtraBold",
                   fontSize: 15,
                 }}
-                rippleColor="#F83758"
+                rippleColor="#34A853"
                 position="trailing"
-                color="#F83758"
+                color="#34A853"
               />
             </View>
           </RadioButton.Group>

@@ -3,6 +3,7 @@ export interface IOrder {
   created_at: string;
   nombre_articles: number;
   prix_total_articles: number;
+  prix_total: number;
   quantite: number;
   statut: string;
 }
