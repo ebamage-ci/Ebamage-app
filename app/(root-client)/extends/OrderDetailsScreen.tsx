@@ -102,7 +102,10 @@ const OrderDetailsScreen = () => {
             className="font-raleway-bold text-xl text-gray-800 flex-shrink"
             numberOfLines={1}
             ellipsizeMode="tail">
-            Commande #{data?.hashid?.slice(-8)}
+            Commande :
+          </Text>
+          <Text className="font-raleway-semibold text-lg text-gray-600 flex-shrink">
+            {data?.hashid}
           </Text>
           <View className="bg-white rounded-xl p-4 mb-4 shadow-sm">
             <View className="flex-row justify-between items-center mb-4">

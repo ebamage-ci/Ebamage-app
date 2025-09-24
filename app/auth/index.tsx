@@ -10,9 +10,9 @@ export default function SignupMainScreen() {
     router.push("/auth/clientSignupScreen");
   };
 
-  const clickSignupShop = () => {
-    router.push("/auth/shopSignupScreen");
-  };
+  // const clickSignupShop = () => {
+  //   router.push("/auth/shopSignupScreen");
+  // };
 
   return (
     <View className="bg-white h-full items-center justify-center p-2">

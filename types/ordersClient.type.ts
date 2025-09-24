@@ -2,6 +2,9 @@ export interface IOrder {
   hashid: string;
   created_at: string;
   nombre_articles: number;
+  prix_total_articles: number;
+  quantite: number;
+  statut: string;
 }
 
 export interface IOrdersResponseClient {
