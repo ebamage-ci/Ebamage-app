@@ -60,6 +60,10 @@ export default function Layout() {
         name="OrdersScreen"
         options={{ header: () => <Header title="Commandes" /> }}
       />
+      <Stack.Screen
+        name="NotificationsScreen"
+        options={{ header: () => <Header title="Notifications" /> }}
+      />
     </Stack>
   );
 }

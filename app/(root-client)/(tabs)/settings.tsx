@@ -47,6 +47,9 @@ export default function HomeScreen() {
           <SettingItem
             label="Notifications"
             icon={<NotifIcon fill={"#777E90"} stroke={"#fff"} />}
+            onPress={() =>
+              router.push("/(root-client)/extends/NotificationsScreen")
+            }
           />
           <SettingItem
             label="Mes commandes"

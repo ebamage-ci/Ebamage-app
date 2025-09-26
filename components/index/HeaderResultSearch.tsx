@@ -11,14 +11,12 @@ import icons from "@/constants/icons";
 import { useRouter } from "expo-router";
 
 import NotifIcon from "@/assets/svgs/NotifIcon";
-import { useAuthClientStore } from "@/stores/useAuthClient.store";
 
 type HeaderResultSearchProps = {
   keyword?: string;
 };
 
 const HeaderResultSearch = ({ keyword = "" }: HeaderResultSearchProps) => {
-  const { user } = useAuthClientStore();
   const router = useRouter();
 
   return (
