@@ -11,3 +11,8 @@ export interface INotifsResponseClient {
   message: string;
   data: INotif[];
 }
+
+export interface INotifUpdateClient {
+  hashid: string;
+  deviceToken: string;
+}

@@ -1,5 +1,8 @@
 import { BASE_URL } from "@/constants/api";
-import { INotifsResponseClient } from "@/types/notifClient.type";
+import {
+  INotifsResponseClient,
+  INotifUpdateClient,
+} from "@/types/notifClient.type";
 import { parseApiError } from "@/utils/parseApiError";
 import axios from "axios";
 
@@ -15,7 +18,7 @@ export const fetchNotifsClient = async (
       },
     });
 
-    // console.log("-- resp notifs data -- ", response.data);
+    console.log("-- resp notifs data -- ", response.data);
 
     if (!response?.data?.success) {
       // console.log("-- resp notifs data -- ", response.data);
@@ -25,7 +28,32 @@ export const fetchNotifsClient = async (
 
     return response.data;
   } catch (error) {
-    // console.log("-- resp notifs error -- ", error);
+    console.log("-- resp notifs error -- ", error);
+    throw parseApiError(error);
+  }
+};
+
+// update notif
+export const updateUserDeviceToken = async (data: INotifUpdateClient) => {
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/notifications/${data?.hashid}`,
+      {
+        deviceToken: data?.deviceToken,
+      }
+    );
+
+    console.log("-- resp update notif -- ", response.data);
+
+    if (!response?.data?.success) {
+      // console.log("-- resp notifs data -- ", response.data);
+
+      throw response?.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    console.log("-- resp update notif error -- ", error);
     throw parseApiError(error);
   }
 };

@@ -1,12 +1,10 @@
 import HistoryIcon from "@/assets/svgs/HistoryIcon";
 import LogoutIcon from "@/assets/svgs/LogoutIcon";
 import NotifIcon from "@/assets/svgs/NotifIcon";
-import UserIcon from "@/assets/svgs/UserIcon";
 import SettingItem from "@/components/settings/SettingItem";
 import { router } from "expo-router";
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 
-import HelpCenterIcon from "@/assets/svgs/HelpCenterIcon";
 import { useAuthClientStore } from "@/stores/useAuthClient.store";
 
 export default function HomeScreen() {
@@ -40,10 +38,10 @@ export default function HomeScreen() {
         {/** setting items */}
 
         <View className="gap-3 flex-[0.7] ">
-          <SettingItem
+          {/* <SettingItem
             label="Mon compte"
             icon={<UserIcon fill={"#777E90"} />}
-          />
+          /> */}
           <SettingItem
             label="Notifications"
             icon={<NotifIcon fill={"#777E90"} stroke={"#fff"} />}
@@ -56,10 +54,10 @@ export default function HomeScreen() {
             icon={<HistoryIcon fill={"#777E90"} />}
             onPress={() => router.push("/(root-client)/extends/OrdersScreen")}
           />
-          <SettingItem
+          {/* <SettingItem
             label="Centre d'aide"
             icon={<HelpCenterIcon fill={"#777E90"} />}
-          />
+          /> */}
           <SettingItem
             label="Déconnexion"
             icon={<LogoutIcon fill={"#ED1010"} />}

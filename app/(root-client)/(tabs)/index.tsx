@@ -25,9 +25,34 @@ import { useLocalCategoryClientStore } from "@/stores/useLocalCategoryClient.sto
 //+++ datas from api / localstore
 
 //+ categories from api / localstore
+import { useClientUpdateDeviceToken } from "@/hooks/useClientUpdateDeviceToken";
 import { useManageLoadCategoriesClient } from "@/hooks/useManageLoadCategoriesClient";
+import { usePushNotifications } from "@/hooks/usePushNotifications";
+import { useAuthClientStore } from "@/stores/useAuthClient.store";
+import { useEffect } from "react";
 
 export default function HomeScreen() {
+  const { user } = useAuthClientStore();
+  const { expoPushToken } = usePushNotifications();
+  const { mutate: updateDeviceToken } = useClientUpdateDeviceToken();
+
+  useEffect(() => {
+    // console.log(">>> useEffect triggered");
+    // console.log("expoPushToken =", expoPushToken);
+    // console.log("user?.hashid_clt =", user?.hashid_clt);
+    if (expoPushToken) {
+      console.log("gooooooooooo");
+
+      // update
+      // updateDeviceToken({
+      //   hashid: user.hashid_clt,
+      //   deviceToken: expoPushToken,
+      // });
+    }
+  }, [expoPushToken, user?.hashid_clt, updateDeviceToken]);
+
+  // console.log("-- expoPushToken --> ", expoPushToken);
+
   const { data, isLoading, isError } = useClientFetchCategories();
 
   // console.log("-- data -- ", JSON.stringify(data, null,2));

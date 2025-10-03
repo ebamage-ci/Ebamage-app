@@ -17,7 +17,7 @@ export default function SignupMainScreen() {
   return (
     <View className="bg-white h-full items-center justify-center p-2">
       <Text className="font-raleway-extra-bold text-[45px] leading-[43px]">
-        trucdelate.
+        Ebamage
       </Text>
 
       <Text className=" text-center pt-12 font-raleway-bold text-[36px] leading-[43px]">
