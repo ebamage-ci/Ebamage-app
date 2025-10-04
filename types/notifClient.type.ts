@@ -1,7 +1,7 @@
 export interface INotif {
   hashid: string;
   title: string;
-  body: string;
+  message: string;
   type: string;
   created_at: string;
 }

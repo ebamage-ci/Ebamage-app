@@ -24,7 +24,7 @@ const HeaderIndex = () => {
       <View className="flex-row justify-between items-center">
         {/** left */}
         <Text className="font-raleway-extra-bold text-[20px] text-primary">
-          EBAMAGE{" "}
+          EBAMAGE
         </Text>
 
         {/** right */}
@@ -32,7 +32,7 @@ const HeaderIndex = () => {
           <TouchableOpacity
             className="bg-[#F2F2F2] rounded-full p-2"
             onPress={() => {
-              router.push("/(root-client)/(tabs)/cart");
+              router.push("/extends/NotificationsScreen");
             }}>
             <NotifIcon
               width={24}

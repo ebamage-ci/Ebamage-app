@@ -4,7 +4,7 @@ import { formatDate } from "@/utils/formatDate";
 import { Text, View } from "react-native";
 
 const NotifItem = ({ notif }: { notif: INotif }) => {
-  const { title, body, created_at } = notif;
+  const { title, message, created_at } = notif;
 
   return (
     <View
@@ -30,7 +30,7 @@ const NotifItem = ({ notif }: { notif: INotif }) => {
 
           {/* Corps */}
           <Text className="text-[#555] font-raleway text-[13px] mt-1">
-            {body}
+            {message}
           </Text>
         </View>
       </View>

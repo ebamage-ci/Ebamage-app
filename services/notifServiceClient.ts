@@ -38,8 +38,8 @@ export const updateUserDeviceToken = async (
   token: string,
   data: INotifUpdateClient
 ) => {
-  console.log("-- token -- ", token);
-  console.log("-- data -- ", JSON.stringify(data, null, 2));
+  // console.log("-- token -- ", token);
+  // console.log("-- data -- ", JSON.stringify(data, null, 2));
 
   try {
     const response = await axios.post(
