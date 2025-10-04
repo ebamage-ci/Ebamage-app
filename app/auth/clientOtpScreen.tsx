@@ -133,7 +133,7 @@ export default function ClientOtpScreen() {
         setIsConnected(true);
         setUser({
           email_clt: data.data.email_clt,
-          hashid_clt: data.data.hashid_clt,
+          hashid_clt: data.data.hashid,
           nom_clt: data.data.nom_clt,
           solde_tdl: data.data.solde_tdl,
           tel_clt: data.data.tel_clt,

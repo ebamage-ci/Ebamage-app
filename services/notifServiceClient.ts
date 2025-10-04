@@ -34,19 +34,31 @@ export const fetchNotifsClient = async (
 };
 
 // update notif
-export const updateUserDeviceToken = async (data: INotifUpdateClient) => {
+export const updateUserDeviceToken = async (
+  token: string,
+  data: INotifUpdateClient
+) => {
+  console.log("-- token -- ", token);
+  console.log("-- data -- ", JSON.stringify(data, null, 2));
+
   try {
-    const response = await axios.put(
-      `${BASE_URL}/notifications/${data?.hashid}`,
+    const response = await axios.post(
+      `${BASE_URL}/device/token`,
       {
-        deviceToken: data?.deviceToken,
+        hashid: data?.hashid,
+        device_token: data?.deviceToken,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 
     console.log("-- resp update notif -- ", response.data);
 
     if (!response?.data?.success) {
-      // console.log("-- resp notifs data -- ", response.data);
+      // console.log("-- !resp notifs data success -- ", response.data);
 
       throw response?.data;
     }

@@ -84,6 +84,11 @@ const DeliveryScreen = () => {
       },
       {
         onSuccess: async (data) => {
+          // console.log(
+          //   "-- data order success -----> ",
+          //   JSON.stringify(data.hashid, null, 2)
+          // );
+
           await resetCart();
           // console.log("-- id order success -----> ", data.hashid);
           // Utiliser replace pour éviter de revenir sur DeliveryScreen

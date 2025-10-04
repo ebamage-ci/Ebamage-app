@@ -6,12 +6,12 @@ import { Text, TouchableOpacity, View } from "react-native";
 const OrderItem = ({ order }: { order: IOrder }) => {
   const { created_at, hashid, nombre_articles, prix_total, statut } = order;
 
-  // console.log("-- order -- ", order);
+  // console.log("-- order -- ", JSON.stringify(order, null, 2));
 
   const getStatusColor = (statut?: string) => {
     switch (statut) {
       case "En attente":
-        console.log("attente");
+        // console.log("attente");
         return "#F59E0B"; // orange
       case "En cours":
         return "#2563EB"; // bleu

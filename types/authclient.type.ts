@@ -30,7 +30,7 @@ export interface IVerifOtpResponseClient {
     tel_clt: string;
     prenom_clt: string;
     solde_tdl: number;
-    hashid_clt: string;
+    hashid: string;
   };
   token: string;
 }

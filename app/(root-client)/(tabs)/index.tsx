@@ -40,16 +40,19 @@ export default function HomeScreen() {
     // console.log(">>> useEffect triggered");
     // console.log("expoPushToken =", expoPushToken);
     // console.log("user?.hashid_clt =", user?.hashid_clt);
-    if (expoPushToken) {
+    if (expoPushToken && user?.hashid_clt) {
       console.log("gooooooooooo");
 
       // update
-      // updateDeviceToken({
-      //   hashid: user.hashid_clt,
-      //   deviceToken: expoPushToken,
-      // });
+      updateDeviceToken({
+        token: user?.token || "",
+        data: {
+          hashid: user?.hashid_clt,
+          deviceToken: expoPushToken,
+        },
+      });
     }
-  }, [expoPushToken, user?.hashid_clt, updateDeviceToken]);
+  }, [expoPushToken, user?.token, user?.hashid_clt, updateDeviceToken]);
 
   // console.log("-- expoPushToken --> ", expoPushToken);
 

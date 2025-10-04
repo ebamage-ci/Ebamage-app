@@ -14,7 +14,10 @@ export const fetchOrdersClient = async (
       },
     });
 
-    // console.log("-- resp orders data -- ", response.data);
+    // console.log(
+    //   "-- resp orders data -- ",
+    //   JSON.stringify(response.data, null, 2)
+    // );
 
     if (!response?.data?.success) {
       throw response?.data;

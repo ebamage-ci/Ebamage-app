@@ -4,6 +4,12 @@ import { useMutation } from "@tanstack/react-query";
 
 export const useClientUpdateDeviceToken = () => {
   return useMutation({
-    mutationFn: (data: INotifUpdateClient) => updateUserDeviceToken(data),
+    mutationFn: ({
+      token,
+      data,
+    }: {
+      token: string;
+      data: INotifUpdateClient;
+    }) => updateUserDeviceToken(token, data),
   });
 };
