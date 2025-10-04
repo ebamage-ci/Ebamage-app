@@ -22,7 +22,7 @@ const NotifItem = ({ notif }: { notif: INotif }) => {
           {/* Titre + Date */}
           <View className="flex flex-row justify-between items-center">
             <Text className="font-raleway-bold text-[15px]">{title}</Text>
-            <Text className="text-[#777E90] text-[12px]">
+            <Text className="text-[#777E90] text-[12px] font-raleway">
               {formatDate(created_at)}
               {/* 12/05/2023 */}
             </Text>

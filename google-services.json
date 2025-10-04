@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "309527563329",
+    "project_id": "ebamage-3fb9e",
+    "storage_bucket": "ebamage-3fb9e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309527563329:android:12daa1f544c953cad04ac0",
+        "android_client_info": {
+          "package_name": "com.devjudicael.ebamage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRsRqhBg9dpCQdUdqFdKR-4uvwgrz-OAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

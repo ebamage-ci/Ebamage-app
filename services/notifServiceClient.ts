@@ -55,7 +55,7 @@ export const updateUserDeviceToken = async (
       }
     );
 
-    console.log("-- resp update notif -- ", response.data);
+    // console.log("-- resp update notif -- ", response.data);
 
     if (!response?.data?.success) {
       // console.log("-- !resp notifs data success -- ", response.data);

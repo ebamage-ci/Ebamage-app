@@ -10,14 +10,14 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/icons/ebamage.jpg",
+      "image": "./assets/icons/ebamage.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true,
       "splash": {
-        "image": "./assets/icons/ebamage.jpg",
+        "image": "./assets/icons/ebamage.png",
         "resizeMode": "contain",
         "backgroundColor": "#ffffff"
       }
@@ -38,12 +38,12 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/icons/ebamage.jpg",
+          "image": "./assets/icons/ebamage.png",
           "imageWidth": 170,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
           "dark": {
-            "image": "./assets/icons/ebamage.jpg",
+            "image": "./assets/icons/ebamage.png",
             "backgroundColor": "#ffffff"
           }
         }
