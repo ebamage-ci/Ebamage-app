@@ -20,7 +20,7 @@ const OrderItem = ({ order }: { order: IOrder }) => {
       case "Annulée":
         return "#DC2626"; // rouge
       default:
-        console.log("default", statut);
+        // console.log("default", statut);
         return "#777E90"; // gris par défaut
     }
   };

@@ -27,7 +27,6 @@
       "package": "com.devjudicael.ebamage",
       "googleServicesFile": "./google-services.json"
     },
-
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -48,7 +47,9 @@
           }
         }
       ],
-      "expo-notifications"
+      "expo-notifications",
+      "expo-font",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true

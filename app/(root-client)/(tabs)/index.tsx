@@ -41,7 +41,7 @@ export default function HomeScreen() {
     // console.log("expoPushToken =", expoPushToken);
     // console.log("user?.hashid_clt =", user?.hashid_clt);
     if (expoPushToken && user?.hashid_clt) {
-      console.log("gooooooooooo");
+      // console.log("gooooooooooo");
 
       // update
       updateDeviceToken({

@@ -74,7 +74,7 @@ async function registerForPushNotificationsAsync() {
           projectId,
         })
       ).data;
-      console.log(pushTokenString);
+      // console.log(pushTokenString);
       return pushTokenString;
     } catch (e: unknown) {
       handleRegistrationError(`${e}`);
@@ -102,7 +102,7 @@ export const usePushNotifications = () => {
 
         // Si la notification contient des données, on peut les traiter ici
         if (notification.request.content.data) {
-          console.log("Notification data:", notification.request.content.data);
+          // console.log("Notification data:", notification.request.content.data);
           // Ici, on pourrait naviguer vers un écran spécifique en fonction des données
           // Par exemple: router.push('/notifications');
         }
@@ -114,7 +114,7 @@ export const usePushNotifications = () => {
         // Traitement du clic sur la notification
         const data = response.notification.request.content.data;
         if (data) {
-          console.log("Clicked notification data:", data);
+          // console.log("Clicked notification data:", data);
           // Ici, on pourrait naviguer vers un écran spécifique en fonction des données
           // Par exemple, si la notification concerne une demande de service:
           // if (data.type === 'service_request') {

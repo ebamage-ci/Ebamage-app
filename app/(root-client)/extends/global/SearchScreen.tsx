@@ -1,21 +1,15 @@
 import SearchItem from "@/components/global/SearchItem";
 import { LegendList } from "@legendapp/list";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
 // import { searchItems } from "@/constants/mockDatas";
-import { useRouter } from "expo-router";
+// import { useRouter } from "expo-router";
 
 // log item cliqued
 const SearchScreen = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const onSearchItemPress = (item: any) => {
-    console.log(item);
+    // console.log(item);
   };
 
   return (
@@ -63,12 +57,12 @@ const SearchScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
 
-    backgroundColor: "#F9F9F9",
-  },
-});
+//     backgroundColor: "#F9F9F9",
+//   },
+// });
 
 export default SearchScreen;

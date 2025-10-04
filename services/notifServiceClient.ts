@@ -18,7 +18,7 @@ export const fetchNotifsClient = async (
       },
     });
 
-    console.log("-- resp notifs data -- ", response.data);
+    // console.log("-- resp notifs data -- ", response.data);
 
     if (!response?.data?.success) {
       // console.log("-- resp notifs data -- ", response.data);
