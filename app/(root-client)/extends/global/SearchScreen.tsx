@@ -1,5 +1,6 @@
 import SearchItem from "@/components/global/SearchItem";
 import { LegendList } from "@legendapp/list";
+import { router } from "expo-router";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
 // import { searchItems } from "@/constants/mockDatas";
@@ -9,7 +10,9 @@ import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 const SearchScreen = () => {
   // const router = useRouter();
   const onSearchItemPress = (item: any) => {
-    // console.log(item);
+    console.log(item);
+
+    router.push(`/extends/SearchResultsScreen?keyword=${item?.title}`);
   };
 
   return (
@@ -25,7 +28,16 @@ const SearchScreen = () => {
         }}>
         <View className="h-full">
           <LegendList
-            data={[]}
+            data={[
+              {
+                id: 1,
+                title: "chemise",
+              },
+              {
+                id: 2,
+                title: "chaussure",
+              },
+            ]}
             renderItem={({ item }) => (
               <SearchItem item={item} onPress={() => onSearchItemPress(item)} />
             )}

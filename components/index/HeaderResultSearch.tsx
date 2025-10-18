@@ -32,7 +32,7 @@ const HeaderResultSearch = ({ keyword = "" }: HeaderResultSearchProps) => {
           <TouchableOpacity
             className="bg-[#F2F2F2] rounded-full p-2"
             onPress={() => {
-              router.push("/(root-client)/(tabs)/cart");
+              router.push("/(root-client)/extends/NotificationsScreen");
             }}>
             <NotifIcon
               width={24}

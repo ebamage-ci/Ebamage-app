@@ -1,13 +1,38 @@
 import icons from "@/constants/icons";
+import { useClientFetchSuggestions } from "@/hooks/useClientFetchSuggestions";
+import { useSearchSuggestByQueryClientStore } from "@/stores/useSearchSuggestByQueryClient.store";
+
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, View } from "react-native";
 import { Searchbar } from "react-native-paper";
 
 const HeaderSearch = () => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+  const { setSuggestions } = useSearchSuggestByQueryClientStore();
 
+  const { refetch } = useClientFetchSuggestions(searchQuery);
+
+  // debounce search query
+  useEffect(() => {
+    if (searchQuery.trim().length < 2) {
+      setSuggestions([]);
+      return;
+    }
+
+    const handler = setTimeout(() => {
+      console.log("query :", searchQuery);
+      // refetch().then((res) => {
+      //   if (!res?.data?.data) return;
+      //   setSuggestions(res?.data?.data || []);
+      // });
+    }, 2000);
+
+    return () => clearTimeout(handler); // nettoie à chaque changement
+  }, [searchQuery, refetch, setSuggestions]);
+
+  // submit search query
   const handleSearchSubmit = () => {
     const trimmedQuery = searchQuery.trim();
 
@@ -21,13 +46,16 @@ const HeaderSearch = () => {
 
     router.push(`/extends/SearchResultsScreen?keyword=${trimmedQuery}`);
   };
+  const onChangeTextQueryHandler = (text: string) => {
+    setSearchQuery(text);
+  };
 
   return (
     <View className="bg-[#FDFDFD] px-5">
       <View className="mt-10">
         <Searchbar
           placeholder="Rechercher un article..."
-          onChangeText={setSearchQuery}
+          onChangeText={onChangeTextQueryHandler}
           value={searchQuery}
           iconColor="#797979"
           elevation={0}
