@@ -34,6 +34,8 @@ export const fetchSuggestionsServiceClient = async (
       `${BASE_URL}/suggestion?libelle=${keyword}`
     );
 
+    console.log("suggests :", JSON.stringify(response?.data, null, 2));
+
     if (!response?.data?.success) {
       throw response?.data;
     }

@@ -3,16 +3,19 @@ import { LegendList } from "@legendapp/list";
 import { router } from "expo-router";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
+import { useSearchSuggestByQueryClientStore } from "@/stores/useSearchSuggestByQueryClient.store";
 // import { searchItems } from "@/constants/mockDatas";
 // import { useRouter } from "expo-router";
 
 // log item cliqued
 const SearchScreen = () => {
+  const { suggestions } = useSearchSuggestByQueryClientStore();
+
   // const router = useRouter();
   const onSearchItemPress = (item: any) => {
     console.log(item);
 
-    router.push(`/extends/SearchResultsScreen?keyword=${item?.title}`);
+    router.push(`/extends/SearchResultsScreen?keyword=${item?.libelle}`);
   };
 
   return (
@@ -28,16 +31,7 @@ const SearchScreen = () => {
         }}>
         <View className="h-full">
           <LegendList
-            data={[
-              {
-                id: 1,
-                title: "chemise",
-              },
-              {
-                id: 2,
-                title: "chaussure",
-              },
-            ]}
+            data={suggestions || []}
             renderItem={({ item }) => (
               <SearchItem item={item} onPress={() => onSearchItemPress(item)} />
             )}

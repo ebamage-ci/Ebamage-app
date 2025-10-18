@@ -23,11 +23,12 @@ const HeaderSearch = () => {
 
     const handler = setTimeout(() => {
       console.log("query :", searchQuery);
-      // refetch().then((res) => {
-      //   if (!res?.data?.data) return;
-      //   setSuggestions(res?.data?.data || []);
-      // });
-    }, 2000);
+      refetch().then((res) => {
+        // if (!res?.data?.data) return;
+
+        setSuggestions(res?.data?.data || []);
+      });
+    }, 300);
 
     return () => clearTimeout(handler); // nettoie à chaque changement
   }, [searchQuery, refetch, setSuggestions]);
