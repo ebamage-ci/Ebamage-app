@@ -15,7 +15,10 @@ export const fetchArticleSearchServiceClient = async (
       `${BASE_URL}/recherche?keyword=${keyword}`
     );
 
+    console.log("search keyword :", JSON.stringify(response?.data, null, 2));
+
     if (!response?.data?.success) {
+      console.log("error :", response?.data);
       throw response?.data;
     }
 

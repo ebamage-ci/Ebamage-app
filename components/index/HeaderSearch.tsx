@@ -28,7 +28,7 @@ const HeaderSearch = () => {
 
         setSuggestions(res?.data?.data || []);
       });
-    }, 300);
+    }, 200);
 
     return () => clearTimeout(handler); // nettoie à chaque changement
   }, [searchQuery, refetch, setSuggestions]);

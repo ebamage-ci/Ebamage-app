@@ -27,14 +27,14 @@ const ArticlesCategoryScreen = () => {
         {/** nb articles -- filter button */}
         <View className="flex-row justify-between items-center flex-[.1] ">
           <Text className="font-raleway-semibold text-[18px]  ">
-            {data?.data.length} Articles
+            {data?.data.articles.length} Articles
           </Text>
         </View>
 
         {/** list articles */}
         <View className=" flex-[.3] mt-10">
           <LegendList
-            data={data?.data || []}
+            data={data?.data.articles || []}
             numColumns={2}
             horizontal={false}
             keyExtractor={(item, index) => index.toString()}

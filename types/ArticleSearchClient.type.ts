@@ -1,8 +1,12 @@
 import { IArticle } from "./article.type";
+import { IShop } from "./shop.type";
 
 export interface IArticleSearchResponseClient {
   success: boolean;
-  data: IArticle[];
+  data: {
+    articles: IArticle[];
+    boutiques: IShop[];
+  };
 }
 
 export interface ISuggestion {
