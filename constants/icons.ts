@@ -8,6 +8,7 @@ import hometabFocused from "@/assets/icons/hometabFocused.png";
 import livetab from "@/assets/icons/livetab.png";
 import settingstab from "@/assets/icons/settingstab.png";
 import settingstabFocused from "@/assets/icons/settingstabFocused.png";
+import shoptab from "@/assets/icons/shoptab.png";
 
 //others
 import arroba from "@/assets/icons/arroba.png";
@@ -58,4 +59,5 @@ export default {
   edit,
   wallet,
   user2,
+  shoptab,
 };

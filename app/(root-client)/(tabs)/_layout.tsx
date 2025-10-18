@@ -47,6 +47,27 @@ export default function TabsLayout() {
           },
         }}
       />
+      <Tabs.Screen
+        name="shop"
+        options={{
+          title: "Shop",
+          tabBarHideOnKeyboard: true,
+          // headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              focused={focused}
+              icon={icons.shoptab}
+              label="boutiques"
+              iconFocused={icons.shoptab}
+            />
+          ),
+          tabBarButton: (props) => <CustomTabBarButtonIcon {...props} />,
+
+          header: () => {
+            return <HeaderIndex />;
+          },
+        }}
+      />
 
       <Tabs.Screen
         name="cart"

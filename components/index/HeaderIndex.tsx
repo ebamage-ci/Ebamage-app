@@ -50,7 +50,7 @@ const HeaderIndex = () => {
         }>
         <View className="mt-10">
           <Searchbar
-            placeholder="Saisissez un article..."
+            placeholder="Rechercher quelque chose..."
             onChangeText={setSearchQuery}
             value={searchQuery}
             iconColor="#797979"
