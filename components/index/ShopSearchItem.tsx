@@ -17,7 +17,7 @@ const ShopSearchItem = ({ item }: ShopSearchItemProps) => {
       activeOpacity={0.5}
       className="items-center bg-white rounded-lg p-3 m-2 shadow-sm border border-gray-100 w-43 h-43"
       onPress={() => {
-        console.log(item);
+        // console.log(item);
 
         router.push({
           pathname: "/(root-client)/extends/ShopDetailsScreen",

@@ -15,8 +15,6 @@ import { ActivityIndicator } from "react-native-paper";
 const ShopDetailsScreen = () => {
   const { id, keyword, image, description_btq } = useLocalSearchParams();
 
-  console.log("id shop", id);
-
   const [isExpanded, setIsExpanded] = useState(false);
 
   const { data, isLoading, error } = useClientFetchArticlesShop(id as string);
