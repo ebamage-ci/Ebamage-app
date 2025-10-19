@@ -95,7 +95,11 @@ const ArticleList = ({ data }: ArticleListProps) => {
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         ListEmptyComponent={
-          <Text className="text-center">Aucun article similaire trouvé.</Text>
+          <View className="flex-1 justify-center items-center">
+            <Text className="text-center font-raleway-medium">
+              Aucun article trouvé.
+            </Text>
+          </View>
         }
         recycleItems
         showsHorizontalScrollIndicator={false}

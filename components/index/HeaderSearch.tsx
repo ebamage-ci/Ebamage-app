@@ -55,7 +55,7 @@ const HeaderSearch = () => {
     <View className="bg-[#FDFDFD] px-5">
       <View className="mt-10">
         <Searchbar
-          placeholder="Rechercher un article..."
+          placeholder="Rechercher quelque chose ..."
           onChangeText={onChangeTextQueryHandler}
           value={searchQuery}
           iconColor="#797979"

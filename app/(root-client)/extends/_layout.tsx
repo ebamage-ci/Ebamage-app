@@ -3,6 +3,7 @@ import HeaderArticlesCategory from "@/components/index/HeaderArticlesCategory";
 import HeaderDetails from "@/components/index/HeaderDetails";
 import HeaderResultSearch from "@/components/index/HeaderResultSearch";
 import HeaderSearch from "@/components/index/HeaderSearch";
+import HeaderShopDetail from "@/components/index/HeaderShopDetail";
 import { Stack } from "expo-router";
 
 export default function Layout() {
@@ -28,6 +29,16 @@ export default function Layout() {
         options={({ route }) => ({
           header: () => (
             <HeaderArticlesCategory
+              keyword={(route.params as { keyword: string }).keyword}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ShopDetailsScreen"
+        options={({ route }) => ({
+          header: () => (
+            <HeaderShopDetail
               keyword={(route.params as { keyword: string }).keyword}
             />
           ),

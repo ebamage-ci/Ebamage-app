@@ -1,15 +1,11 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import ShopItems from "@/components/index/ShopItems";
 import icons from "@/constants/icons";
-import { onlineManager } from "@tanstack/react-query";
-import HeaderSearch from "@/components/index/HeaderSearch";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 const shop = () => {
   return (
     <ScrollView style={styles.container}>
       <View className="flex-1 p-4">
-       
-
         {/* Titre des boutiques */}
         <View className="flex-1 my-4 flex-row justify-between items-center p-3 rounded-lg bg-primary-300">
           <View>

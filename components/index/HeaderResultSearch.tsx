@@ -47,7 +47,7 @@ const HeaderResultSearch = ({ keyword = "" }: HeaderResultSearchProps) => {
       <Pressable onPress={() => router.back()}>
         <View className="mt-10">
           <Searchbar
-            placeholder="Rechercher un article..."
+            placeholder="Rechercher quelque chose ..."
             value={keyword}
             iconColor="#797979"
             elevation={0}

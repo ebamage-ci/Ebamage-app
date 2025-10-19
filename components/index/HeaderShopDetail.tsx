@@ -2,13 +2,13 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
-type HeaderArticlesCategoryProps = {
+type HeaderShopDetailProps = {
   keyword?: string;
 };
 
-const HeaderArticlesCategory = ({
-  keyword = "Categorie",
-}: HeaderArticlesCategoryProps) => {
+const HeaderShopDetail = ({
+  keyword = "Détail boutique",
+}: HeaderShopDetailProps) => {
   return (
     <View className="bg-[#F9F9F9] p-5">
       <View className="flex-row justify-between items-center">
@@ -24,4 +24,4 @@ const HeaderArticlesCategory = ({
   );
 };
 
-export default HeaderArticlesCategory;
+export default HeaderShopDetail;
