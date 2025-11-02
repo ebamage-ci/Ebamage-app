@@ -77,7 +77,7 @@ const ShopDetailsScreen = () => {
             <>
               <View className="mb-3">
                 <Text className="font-raleway-semibold text-[16px]">
-                  {data?.data?.length ?? 0} Articles
+                  {data?.data?.length ?? 0} Article(s)
                 </Text>
               </View>
               <View className=" flex-1">

@@ -1,10 +1,17 @@
 import { images } from "@/constants/Images";
+import { IPub } from "@/types/pubClient.type";
 import { Image, StyleSheet, View } from "react-native";
 
-const Pub = () => {
+const Pub = ({ pub }: { pub: IPub }) => {
+  const { imagePub } = pub;
+
   return (
     <View style={styles.container}>
-      <Image style={styles.image} resizeMode="cover" source={images.pub} />
+      <Image
+        style={styles.image}
+        resizeMode="cover"
+        source={imagePub ? { uri: imagePub } : images.pub}
+      />
     </View>
   );
 };

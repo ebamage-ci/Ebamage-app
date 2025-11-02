@@ -13,6 +13,7 @@ import {
 } from "react-native";
 
 import ArticleList from "@/components/global/ArticleList";
+import Loader from "@/components/global/Loader";
 import ColorsGroup from "@/components/index/ColorsGroup";
 import { useClientFetchArticleDetail } from "@/hooks/useClientFetchArticleDetail";
 import { getDiscount } from "@/utils/getDiscount";
@@ -41,7 +42,7 @@ const ArticleDetailsScreen = () => {
   );
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <Loader />;
   }
   if (isError || !onlineManager.isOnline()) {
     return <Text>Error</Text>;

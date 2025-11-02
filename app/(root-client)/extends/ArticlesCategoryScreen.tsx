@@ -1,3 +1,4 @@
+import Loader from "@/components/global/Loader";
 import MatchArticleWordItem from "@/components/index/MatchArticleWordItem";
 import { useClientFetchSearchedArticles } from "@/hooks/useClientFetchSearchedArticles";
 import { LegendList } from "@legendapp/list";
@@ -9,7 +10,7 @@ const ArticlesCategoryScreen = () => {
   const { data, isLoading, isError } = useClientFetchSearchedArticles(keyword);
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <Loader />;
   }
   if (isError) {
     return <Text>Une erreur s&apos;est produite</Text>;

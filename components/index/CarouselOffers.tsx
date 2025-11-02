@@ -1,3 +1,5 @@
+import { useClientFetchPubs } from "@/hooks/useClientFetchPubs";
+import { IPub } from "@/types/pubClient.type";
 import { memo, useCallback, useRef } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
@@ -7,13 +9,14 @@ import Carousel, {
 } from "react-native-reanimated-carousel";
 import Pub from "./Pub";
 
-const data = [...new Array(3).keys()];
 const width = Dimensions.get("window").width - 35;
 
 // MEMO du composant enfant
 const MemoizedPub = memo(Pub);
 
 function CarouselOffers() {
+  const { data, isLoading, isError } = useClientFetchPubs();
+
   const ref = useRef<ICarouselInstance>(null);
   const progress = useSharedValue<number>(0);
 
@@ -29,13 +32,17 @@ function CarouselOffers() {
 
   // useCallback pour éviter de recréer renderItem
   const renderItem = useCallback(
-    ({ index }: { index: number }) => (
-      <View key={index.toString()} style={{ flex: 1, marginHorizontal: 3 }}>
-        <MemoizedPub />
+    ({ item }: { item: IPub }) => (
+      <View key={item.id.toString()} style={{ flex: 1, marginHorizontal: 3 }}>
+        <MemoizedPub pub={item} />
       </View>
     ),
     []
   );
+
+  if (isLoading || isError) {
+    return null;
+  }
 
   return (
     <View style={styles.wrapper}>
@@ -45,7 +52,7 @@ function CarouselOffers() {
         width={width}
         height={200}
         autoPlayInterval={4000}
-        data={data}
+        data={data?.data || []}
         loop
         autoPlay
         pagingEnabled
@@ -64,7 +71,7 @@ function CarouselOffers() {
       {/* Pagination */}
       <Pagination.Custom
         progress={progress}
-        data={data}
+        data={data?.data || []}
         onPress={onPressPagination}
         size={10}
         activeDotStyle={{

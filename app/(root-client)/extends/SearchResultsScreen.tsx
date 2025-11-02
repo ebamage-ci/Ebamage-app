@@ -1,3 +1,4 @@
+import Loader from "@/components/global/Loader";
 import MatchArticleWordItem from "@/components/index/MatchArticleWordItem";
 import ShopSearchItem from "@/components/index/ShopSearchItem";
 import { useClientFetchSearchedArticles } from "@/hooks/useClientFetchSearchedArticles";
@@ -10,7 +11,7 @@ const SearchResultsScreen = () => {
   const { data, isLoading, isError } = useClientFetchSearchedArticles(keyword);
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <Loader />;
   }
   if (isError) {
     return <Text>Une erreur s&apos;est produite</Text>;
