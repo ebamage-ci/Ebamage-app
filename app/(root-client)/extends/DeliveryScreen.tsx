@@ -35,6 +35,9 @@ const DeliveryScreen = () => {
   const [quartier, setQuartier] = useState("");
 
   const { data } = useClientFetchCities();
+
+  // console.log("cities in Delivery :", JSON.stringify(data, null, 2));
+
   const { data: townsData } = useClientFetchTownsByCity(selectedCity);
 
   // Réinitialiser la commune sélectionnée lorsque la ville change
@@ -120,6 +123,8 @@ const DeliveryScreen = () => {
           datas={cities}
           onValueChange={(value) => {
             if (value === "empty") return;
+
+            console.log("new value city :", value);
             setSelectedCity(value);
           }}
         />

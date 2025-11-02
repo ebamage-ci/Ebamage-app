@@ -33,7 +33,7 @@ function CarouselOffers() {
   // useCallback pour éviter de recréer renderItem
   const renderItem = useCallback(
     ({ item }: { item: IPub }) => (
-      <View key={item.id.toString()} style={{ flex: 1, marginHorizontal: 3 }}>
+      <View key={item.id} style={{ flex: 1, marginHorizontal: 3 }}>
         <MemoizedPub pub={item} />
       </View>
     ),

@@ -1,6 +1,6 @@
 export interface IPub {
   id: string;
-  imagePub: string;
+  image_pub: string;
 }
 
 export interface IGetPubResponseClient {

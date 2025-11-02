@@ -10,6 +10,8 @@ export const fetchCitiesClient = async (): Promise<ICitiesResponsesClient> => {
       `${BASE_URL}/villes`
     );
 
+    // console.log("cities :", JSON.stringify(response?.data, null, 2));
+
     if (!response?.data?.success) {
       throw response?.data;
     }
