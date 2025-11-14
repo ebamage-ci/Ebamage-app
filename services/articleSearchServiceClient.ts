@@ -16,7 +16,7 @@ export const fetchArticleSearchServiceClient = async (
     );
 
     if (!response?.data?.success) {
-      console.log("error :", response?.data);
+      // console.log("error :", response?.data);
       throw response?.data;
     }
 
@@ -35,7 +35,7 @@ export const fetchSuggestionsServiceClient = async (
       `${BASE_URL}/suggestion?libelle=${keyword}`
     );
 
-    console.log("suggests :", JSON.stringify(response?.data, null, 2));
+    // console.log("suggests :", JSON.stringify(response?.data, null, 2));
 
     if (!response?.data?.success) {
       throw response?.data;

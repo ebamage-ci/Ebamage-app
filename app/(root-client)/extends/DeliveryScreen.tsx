@@ -11,6 +11,7 @@ import { IArticleOrderRequestClient } from "@/types/articleOrder.type";
 import { useClientCartArticleOrder } from "@/hooks/useClientCartArticleOrder";
 import { useClientFetchCities } from "@/hooks/useClientFetchCities";
 import { useClientFetchTownsByCity } from "@/hooks/useClientFetchTownsByCity";
+import useFetchDeliveryPriceClient from "@/hooks/useFetchDeliveryPriceClient";
 import { useAuthClientStore } from "@/stores/useAuthClient.store";
 import { useLocalCartArticlesClient } from "@/stores/useLocalCartArticlesClient.store";
 
@@ -34,6 +35,7 @@ const DeliveryScreen = () => {
   const [selectedTown, setSelectedTown] = useState("");
   const [quartier, setQuartier] = useState("");
 
+  const { data: deliveryPriceData } = useFetchDeliveryPriceClient();
   const { data } = useClientFetchCities();
 
   // console.log("cities in Delivery :", JSON.stringify(data, null, 2));
@@ -101,7 +103,7 @@ const DeliveryScreen = () => {
         },
 
         onError: (error) => {
-          console.log("Erreur order:", error);
+          // console.log("Erreur order:", error);
           Alert.alert(
             "Erreur",
             error.message || "Impossible de passer la commande"
@@ -124,7 +126,7 @@ const DeliveryScreen = () => {
           onValueChange={(value) => {
             if (value === "empty") return;
 
-            console.log("new value city :", value);
+            // console.log("new value city :", value);
             setSelectedCity(value);
           }}
         />
@@ -171,12 +173,16 @@ const DeliveryScreen = () => {
         </View>
 
         {/** livraison */}
-        <View className="flex-row justify-between my-2">
-          <Text className="font-raleway-medium text-gray-400 text-[18px] ">
-            Livraison
-          </Text>
-          <Text className="font-raleway-medium text-[15px]">1.000 FCFA</Text>
-        </View>
+        {deliveryPriceData?.value && (
+          <View className="flex-row justify-between my-2">
+            <Text className="font-raleway-medium text-gray-400 text-[18px] ">
+              Livraison
+            </Text>
+            <Text className="font-raleway-medium text-[15px]">
+              {Number(deliveryPriceData?.value) || 0} FCFA
+            </Text>
+          </View>
+        )}
 
         {/* total */}
         <View className="flex-row justify-between my-2">
@@ -184,7 +190,9 @@ const DeliveryScreen = () => {
             Total
           </Text>
           <Text className="font-raleway-medium text-[15px]">
-            {parseFloat(String(prix_total)) + 1000} FCFA
+            {parseFloat(String(prix_total)) +
+              Number(deliveryPriceData?.value) || 0}{" "}
+            FCFA
           </Text>
         </View>
       </View>

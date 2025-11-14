@@ -1,4 +1,4 @@
-import ArticleList from "@/components/global/ArticleList";
+import ArticlesShopItems from "@/components/shop/ArticlesShopItems";
 import useClientFetchArticlesShop from "@/hooks/useClientFetchArticlesShop";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
@@ -82,7 +82,7 @@ const ShopDetailsScreen = () => {
               </View>
               <View className=" flex-1">
                 {/* <ArticleItems /> */}
-                <ArticleList data={data?.data ?? []} />
+                <ArticlesShopItems data={data?.data ?? []} />
               </View>
             </>
           )}

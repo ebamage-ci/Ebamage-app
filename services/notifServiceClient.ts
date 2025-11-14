@@ -28,7 +28,7 @@ export const fetchNotifsClient = async (
 
     return response.data;
   } catch (error) {
-    console.log("-- resp notifs error -- ", error);
+    // console.log("-- resp notifs error -- ", error);
     throw parseApiError(error);
   }
 };
@@ -65,7 +65,7 @@ export const updateUserDeviceToken = async (
 
     return response.data;
   } catch (error) {
-    console.log("-- resp update notif error -- ", error);
+    // console.log("-- resp update notif error -- ", error);
     throw parseApiError(error);
   }
 };

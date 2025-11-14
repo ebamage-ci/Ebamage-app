@@ -1,5 +1,7 @@
 import icons from "@/constants/icons";
 import { useClientFetchOrderDetail } from "@/hooks/useClientFetchOrderDetail";
+import { formatDate } from "@/utils/formatDate";
+import { formatHour } from "@/utils/formatHour";
 import { useFocusEffect } from "@react-navigation/native";
 import { onlineManager } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -25,7 +27,7 @@ const OrderDetailsScreen = () => {
     useCallback(() => {
       const onBackPress = () => {
         if (from === "delivery") {
-          router.replace("/(root-client)/(tabs)");
+          router.replace("/(root-client)/(tabs)/settings");
           return true;
         }
         return false;
@@ -41,7 +43,7 @@ const OrderDetailsScreen = () => {
 
   const handleBackPress = () => {
     if (from === "delivery") {
-      router.replace("/(root-client)/(tabs)");
+      router.replace("/(root-client)/(tabs)/settings");
     } else {
       router.back();
     }
@@ -105,10 +107,14 @@ const OrderDetailsScreen = () => {
             Commande :
           </Text>
           <Text className="font-raleway-semibold text-lg text-gray-600 flex-shrink">
-            {data?.hashid}
+            {data?.code_commande}
           </Text>
           <View className="bg-white rounded-xl p-4 mb-4 shadow-sm">
             <View className="flex-row justify-between items-center mb-4">
+              <Text className="font-raleway-semibold text-lg text-gray-600 flex-shrink">
+                {formatDate(data?.created_at || "")} à{" "}
+                {formatHour(data?.created_at || "")}
+              </Text>
               <View className="bg-primary-200 px-3 py-1 rounded-full ml-3">
                 <Text
                   className="font-raleway-semibold text-xs text-primary"
@@ -189,7 +195,7 @@ const OrderDetailsScreen = () => {
                 className="bg-gray-200 rounded-lg p-3 mb-3 border border-gray-300">
                 <View className="flex-row">
                   <Image
-                    source={{ uri: article.image }}
+                    source={{ uri: article?.image }}
                     className="w-15 h-15 rounded-lg bg-gray-300"
                     resizeMode="cover"
                   />
@@ -199,7 +205,7 @@ const OrderDetailsScreen = () => {
                       className="font-raleway-semibold text-sm text-gray-800 mb-1"
                       numberOfLines={1}
                       ellipsizeMode="tail">
-                      {article.nom_article}
+                      {article?.nom_article}
                     </Text>
 
                     <Text
@@ -316,7 +322,7 @@ const OrderDetailsScreen = () => {
             </View>
           </View>
 
-          {data?.statut?.toLowerCase() === "en_attente" && (
+          {/* {data?.statut?.toLowerCase() === "en_attente" && (
             <View className="mt-2">
               <TouchableOpacity className="bg-white rounded-lg p-3 border border-primary-400">
                 <Text className="font-raleway-semibold text-primary-400 text-center">
@@ -324,7 +330,7 @@ const OrderDetailsScreen = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-          )}
+          )} */}
         </View>
       </ScrollView>
     </View>

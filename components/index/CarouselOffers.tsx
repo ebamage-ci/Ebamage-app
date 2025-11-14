@@ -40,7 +40,7 @@ function CarouselOffers() {
     []
   );
 
-  if (isLoading || isError) {
+  if (isLoading || isError || !data?.data?.length || data?.data?.length === 0) {
     return null;
   }
 

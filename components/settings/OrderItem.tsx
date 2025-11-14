@@ -1,10 +1,18 @@
 import { IOrder } from "@/types/ordersClient.type";
 import { formatDate } from "@/utils/formatDate";
+import { formatHour } from "@/utils/formatHour";
 import { router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const OrderItem = ({ order }: { order: IOrder }) => {
-  const { created_at, hashid, nombre_articles, prix_total, statut } = order;
+  const {
+    created_at,
+    hashid,
+    nombre_articles,
+    prix_total,
+    statut,
+    code_commande,
+  } = order;
 
   // console.log("-- order -- ", JSON.stringify(order, null, 2));
 
@@ -51,13 +59,15 @@ const OrderItem = ({ order }: { order: IOrder }) => {
           <Text className="text-[#777E90] font-raleway-bold text-[18px]">
             Commande :
           </Text>
-          <Text className="font-raleway-bold text-[13px]">#{hashid}</Text>
+          <Text className="font-raleway-bold text-[13px]">
+            #{code_commande}
+          </Text>
         </View>
 
         {/** date */}
         <View className="self-end">
           <Text className="text-[#777E90] font-raleway text-[14px]">
-            {formatDate(created_at)}
+            {formatDate(created_at)} à {formatHour(created_at)}
           </Text>
         </View>
 

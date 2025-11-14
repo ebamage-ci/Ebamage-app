@@ -13,7 +13,7 @@ const SearchScreen = () => {
 
   // const router = useRouter();
   const onSearchItemPress = (item: any) => {
-    console.log(item);
+    // console.log(item);
 
     router.push(`/extends/SearchResultsScreen?keyword=${item?.libelle}`);
   };

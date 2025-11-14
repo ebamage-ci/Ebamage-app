@@ -6,6 +6,7 @@ export interface IOrder {
   prix_total: number;
   quantite: number;
   statut: string;
+  code_commande: string;
 }
 
 export interface IOrdersResponseClient {

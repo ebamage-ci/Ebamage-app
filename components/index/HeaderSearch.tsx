@@ -22,7 +22,7 @@ const HeaderSearch = () => {
     }
 
     const handler = setTimeout(() => {
-      console.log("query :", searchQuery);
+      // console.log("query :", searchQuery);
       refetch().then((res) => {
         // if (!res?.data?.data) return;
 

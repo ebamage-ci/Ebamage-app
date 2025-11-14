@@ -29,4 +29,6 @@ export interface IOrderDetailResponseClient {
   livraison: number;
   prix_total_commande: number;
   articles: articleOrder[];
+  created_at: string;
+  code_commande: string;
 }

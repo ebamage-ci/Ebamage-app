@@ -14,6 +14,8 @@ export const fetchOrderDetailServiceClient = async (
       throw response?.data;
     }
 
+    console.log("detail order ---> ", JSON.stringify(response.data, null, 2));
+
     return response.data;
   } catch (error) {
     throw parseApiError(error);
