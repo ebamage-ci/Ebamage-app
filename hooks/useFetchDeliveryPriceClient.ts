@@ -1,9 +1,9 @@
 import { fetchDeliveryPriceClient } from "@/services/deliveryPriceServiceClient";
 import { useQuery } from "@tanstack/react-query";
-const useFetchDeliveryPriceClient = () => {
+const useFetchDeliveryPriceClient = (cout: number) => {
   return useQuery({
-    queryKey: ["deliveryPrice"],
-    queryFn: fetchDeliveryPriceClient,
+    queryKey: ["deliveryPrice", cout],
+    queryFn: () => fetchDeliveryPriceClient(cout),
   });
 };
 

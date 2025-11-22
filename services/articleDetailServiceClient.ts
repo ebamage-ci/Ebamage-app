@@ -1,14 +1,14 @@
-import { BASE_URL } from "@/constants/api";
+import apiClient from "@/services/apiClient";
 import { IArticleDetailResponseClient } from "@/types/articleDetailClient.type";
 import { parseApiError } from "@/utils/parseApiError";
-import axios from "axios";
+ 
 
 // get - article detail
 export const fetchArticleDetailServiceClient = async (
   id: string
 ): Promise<IArticleDetailResponseClient> => {
   try {
-    const response = await axios.get(`${BASE_URL}/article/${id}`);
+    const response = await apiClient.get(`/article/${id}`);
 
     if (!response?.data?.success) {
       throw response?.data;

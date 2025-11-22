@@ -1,19 +1,20 @@
-import { BASE_URL } from "@/constants/api";
+import apiClient from "@/services/apiClient";
 import { parseApiError } from "@/utils/parseApiError";
-import axios from "axios";
 
 // get - delivery price
-export const fetchDeliveryPriceClient = async (): Promise<{
+export const fetchDeliveryPriceClient = async (
+  cout: number
+): Promise<{
   success: boolean;
   message: string;
-  value: number;
+  data: number;
 }> => {
   try {
-    const response = await axios.get<{
+    const response = await apiClient.get<{
       success: boolean;
       message: string;
-      value: number;
-    }>(`${BASE_URL}/price-delivery`);
+      data: number;
+    }>(`/afficher/prix?cout=${cout}`);
 
     // console.log("delivery price :", JSON.stringify(response?.data, null, 2));
 

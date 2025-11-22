@@ -1,10 +1,10 @@
-import { BASE_URL } from "@/constants/api";
+import apiClient from "@/services/apiClient";
 import {
   INotifsResponseClient,
   INotifUpdateClient,
 } from "@/types/notifClient.type";
 import { parseApiError } from "@/utils/parseApiError";
-import axios from "axios";
+ 
 
 // get notifs
 export const fetchNotifsClient = async (
@@ -12,7 +12,7 @@ export const fetchNotifsClient = async (
 ): Promise<INotifsResponseClient> => {
   try {
     // console.log(token);
-    const response = await axios.get(`${BASE_URL}/notifications`, {
+    const response = await apiClient.get(`/notifications`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -42,8 +42,8 @@ export const updateUserDeviceToken = async (
   // console.log("-- data -- ", JSON.stringify(data, null, 2));
 
   try {
-    const response = await axios.post(
-      `${BASE_URL}/device/token`,
+    const response = await apiClient.post(
+      `/device/token`,
       {
         hashid: data?.hashid,
         device_token: data?.deviceToken,

@@ -1,17 +1,17 @@
-import { BASE_URL } from "@/constants/api";
+import apiClient from "@/services/apiClient";
 import {
   IArticleOrderRequestClient,
   IArticleOrderResponseClient,
 } from "@/types/articleOrder.type";
 import { parseApiError } from "@/utils/parseApiError";
-import axios from "axios";
+ 
 
 export const articleOrderServiceClient = async (
   token: string,
   data: IArticleOrderRequestClient
 ): Promise<IArticleOrderResponseClient> => {
   try {
-    const response = await axios.post(`${BASE_URL}/passer/commande`, data, {
+    const response = await apiClient.post(`/passer/commande`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -1,14 +1,14 @@
-import { BASE_URL } from "@/constants/api";
+import apiClient from "@/services/apiClient";
 import { ITendanceArticlesResponseClient } from "@/types/tendanceArticleClient.type";
 import { parseApiError } from "@/utils/parseApiError";
-import axios from "axios";
+ 
 
 // get - articles tendance
 export const fetchTendancesArticlesClient =
   async (): Promise<ITendanceArticlesResponseClient> => {
     try {
-      const response = await axios.get<ITendanceArticlesResponseClient>(
-        `${BASE_URL}/articles/tendances`
+      const response = await apiClient.get<ITendanceArticlesResponseClient>(
+        `/articles/tendances`
       );
 
       if (!response?.data?.success) {

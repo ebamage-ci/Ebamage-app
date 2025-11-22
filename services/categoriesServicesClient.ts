@@ -1,13 +1,13 @@
-import { BASE_URL } from "@/constants/api";
+import apiClient from "@/services/apiClient";
 import { ICategoriesResponseClient } from "@/types/categoryClient.type";
 import { parseApiError } from "@/utils/parseApiError";
-import axios from "axios";
+ 
 
 // get - categories
 export const fetchCategoriesClient =
   async (): Promise<ICategoriesResponseClient> => {
     try {
-      const response = await axios.get(`${BASE_URL}/categories`);
+      const response = await apiClient.get(`/categories`);
 
       if (!response?.data?.success) {
         throw response?.data;

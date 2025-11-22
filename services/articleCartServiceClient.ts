@@ -1,4 +1,4 @@
-import { BASE_URL } from "@/constants/api";
+import apiClient from "@/services/apiClient";
 import {
   IAddArticleRequestClient,
   IAddArticleResponseClient,
@@ -11,7 +11,7 @@ import {
   IListCartResponseClient,
 } from "@/types/articlesCartClient.type";
 import { parseApiError } from "@/utils/parseApiError";
-import axios from "axios";
+ 
 
 // add article to cart
 export const addArticleCartClient = async (
@@ -19,7 +19,7 @@ export const addArticleCartClient = async (
   token: string
 ): Promise<IAddArticleResponseClient> => {
   try {
-    const response = await axios.post(`${BASE_URL}/ajout/panier`, data, {
+    const response = await apiClient.post(`/ajout/panier`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -40,7 +40,7 @@ export const fetchArticleCartClient = async (
   token: string
 ): Promise<IListCartResponseClient> => {
   try {
-    const response = await axios.get(`${BASE_URL}/panier`, {
+    const response = await apiClient.get(`/panier`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -66,7 +66,7 @@ export const incrementArticleCartClient = async (
   data: IIncrementArticleCartRequestClient
 ): Promise<IIncrementArticleCartResponseClient> => {
   try {
-    const response = await axios.post(`${BASE_URL}/panier/augmenter`, data, {
+    const response = await apiClient.post(`/panier/augmenter`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -88,7 +88,7 @@ export const decrementArticleCartClient = async (
   data: IDecrementArticleCartRequestClient
 ): Promise<IDecrementArticleCartResponseClient> => {
   try {
-    const response = await axios.post(`${BASE_URL}/panier/diminuer`, data, {
+    const response = await apiClient.post(`/panier/diminuer`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -110,7 +110,7 @@ export const deleteArticleCartClient = async (
   data: IDeleteArticleCartRequestClient
 ): Promise<IDeleteArticleCartResponseClient> => {
   try {
-    const response = await axios.post(`${BASE_URL}/panier/delete`, data, {
+    const response = await apiClient.post(`/panier/delete`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

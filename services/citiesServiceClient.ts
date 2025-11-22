@@ -1,13 +1,13 @@
-import { BASE_URL } from "@/constants/api";
+import apiClient from "@/services/apiClient";
 import { ICitiesResponsesClient } from "@/types/citiesClient.type";
 import { parseApiError } from "@/utils/parseApiError";
-import axios from "axios";
+ 
 
 // get - cities
 export const fetchCitiesClient = async (): Promise<ICitiesResponsesClient> => {
   try {
-    const response = await axios.get<ICitiesResponsesClient>(
-      `${BASE_URL}/villes`
+    const response = await apiClient.get<ICitiesResponsesClient>(
+      `/villes`
     );
 
     // console.log("cities :", JSON.stringify(response?.data, null, 2));

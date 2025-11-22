@@ -64,13 +64,13 @@ export default function ShopSignupScreen() {
                 />
               </View>
 
-              <View className="w-full items-end mt-2">
+              {/* <View className="w-full items-end mt-2">
                 <TouchableOpacity>
                   <Text className="text-[14px] font-raleway-bold text-primary">
                     mot de passe oublié ?
                   </Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
 
             <View className="my-10">

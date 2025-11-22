@@ -1,18 +1,18 @@
-import { BASE_URL } from "@/constants/api";
+import apiClient from "@/services/apiClient";
 import {
   IArticleSearchResponseClient,
   ISuggestionResponseClient,
 } from "@/types/ArticleSearchClient.type";
 import { parseApiError } from "@/utils/parseApiError";
-import axios from "axios";
+ 
 
 // get - articles searched
 export const fetchArticleSearchServiceClient = async (
   keyword: string
 ): Promise<IArticleSearchResponseClient> => {
   try {
-    const response = await axios.get(
-      `${BASE_URL}/recherche?keyword=${keyword}`
+    const response = await apiClient.get(
+      `/recherche?keyword=${keyword}`
     );
 
     if (!response?.data?.success) {
@@ -31,8 +31,8 @@ export const fetchSuggestionsServiceClient = async (
   keyword: string
 ): Promise<ISuggestionResponseClient> => {
   try {
-    const response = await axios.get(
-      `${BASE_URL}/suggestion?libelle=${keyword}`
+    const response = await apiClient.get(
+      `/suggestion?libelle=${keyword}`
     );
 
     // console.log("suggests :", JSON.stringify(response?.data, null, 2));

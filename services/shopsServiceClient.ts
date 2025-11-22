@@ -1,15 +1,15 @@
-import { BASE_URL } from "@/constants/api";
+import apiClient from "@/services/apiClient";
 import {
   IArticlesShopResponseClient,
   IShopsResponseClient,
 } from "@/types/shopsClient.type";
 import { parseApiError } from "@/utils/parseApiError";
-import axios from "axios";
+ 
 
 // get - shops
 export const fetchShopsClient = async (): Promise<IShopsResponseClient> => {
   try {
-    const response = await axios.get(`${BASE_URL}/boutiques`);
+    const response = await apiClient.get(`/boutiques`);
 
     if (!response?.data?.success) {
       throw response?.data;
@@ -28,7 +28,7 @@ export const fetchArticlesShopClient = async (
   shopId: string
 ): Promise<IArticlesShopResponseClient> => {
   try {
-    const response = await axios.get(`${BASE_URL}/articles/boutique/${shopId}`);
+    const response = await apiClient.get(`/articles/boutique/${shopId}`);
 
     if (!response?.data?.success) {
       throw response?.data;

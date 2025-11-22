@@ -35,7 +35,9 @@ const DeliveryScreen = () => {
   const [selectedTown, setSelectedTown] = useState("");
   const [quartier, setQuartier] = useState("");
 
-  const { data: deliveryPriceData } = useFetchDeliveryPriceClient();
+  const { data: deliveryPriceData } = useFetchDeliveryPriceClient(
+    Number(prix_total) || 0
+  );
   const { data } = useClientFetchCities();
 
   // console.log("cities in Delivery :", JSON.stringify(data, null, 2));
@@ -173,13 +175,13 @@ const DeliveryScreen = () => {
         </View>
 
         {/** livraison */}
-        {deliveryPriceData?.value && (
+        {deliveryPriceData?.data !== null && (
           <View className="flex-row justify-between my-2">
             <Text className="font-raleway-medium text-gray-400 text-[18px] ">
               Livraison
             </Text>
             <Text className="font-raleway-medium text-[15px]">
-              {Number(deliveryPriceData?.value) || 0} FCFA
+              {Number(deliveryPriceData?.data) || 0} FCFA
             </Text>
           </View>
         )}
@@ -190,8 +192,8 @@ const DeliveryScreen = () => {
             Total
           </Text>
           <Text className="font-raleway-medium text-[15px]">
-            {parseFloat(String(prix_total)) +
-              Number(deliveryPriceData?.value) || 0}{" "}
+            {parseFloat(String(prix_total)) + Number(deliveryPriceData?.data) ||
+              0}
             FCFA
           </Text>
         </View>
