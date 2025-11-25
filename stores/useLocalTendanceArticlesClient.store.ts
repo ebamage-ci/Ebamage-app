@@ -22,11 +22,14 @@ export const useLocalTendancesArticlesClient =
 
     setTendancesArticles: async (tendancesArticles) => {
       try {
+        const limited = Array.isArray(tendancesArticles)
+          ? tendancesArticles.slice(0, 10)
+          : [];
         await AsyncStorage.setItem(
           "@tendancesArticles",
-          JSON.stringify(tendancesArticles)
+          JSON.stringify(limited)
         );
-        set({ tendancesArticles });
+        set({ tendancesArticles: limited });
       } catch (error) {
         console.log("Erreur setTendancesArticles():", error);
       }

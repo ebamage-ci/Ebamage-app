@@ -3,12 +3,11 @@ import { LegendList, LegendListRef, ViewToken } from "@legendapp/list";
 import { memo, useCallback, useRef, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import ArticleItem from "./ArticleItem";
-
 import { IArticle } from "@/types/article.type";
+import ArticleCarouselItem from "./ArticleCarouselItem";
 
 // memo du composant enfant
-const MemoArticleItem = memo(ArticleItem);
+const MemoArticleItem = memo(ArticleCarouselItem);
 
 type viewabilityConfigProps = {
   changed: ViewToken[];

@@ -23,7 +23,12 @@ const CategoryItem = ({ item }: CategoryItemProps) => {
         source={image_categorie ? { uri: image_categorie } : images.shoes}
         // source={images.shoes}
       />
-      <Text className="font-raleway  text-[10px]">{nom_categorie}</Text>
+      <Text
+        className="font-raleway  text-[10px] text-center"
+        numberOfLines={2}
+        ellipsizeMode="tail">
+        {nom_categorie}
+      </Text>
     </TouchableOpacity>
   );
 };

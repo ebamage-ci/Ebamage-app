@@ -8,7 +8,7 @@ export const fetchRecommandedArticlesClient = async (
 ): Promise<IRecommandedArticlesResponseClient> => {
   try {
     const response = await apiClient.get(
-      `/articles/recommandes?page=${page}&per_page=2`
+      `/articles/recommandes?page=${page}&per_page=10`
     );
 
     if (!response?.data?.success) {

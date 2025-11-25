@@ -93,10 +93,7 @@ const ArticleItem = ({ article }: { article: IRecommandedArticleClient }) => {
         foreground: true,
       }}
       onPress={onArticleClickHandle}
-      style={({ pressed }) => [
-        { opacity: pressed ? 0.8 : 1 },
-        { width: 142 },
-      ]}
+      style={({ pressed }) => [{ opacity: pressed ? 0.8 : 1 }, { width: 142 }]}
       className="rounded-md">
       <View
         className="rounded-md bg-white overflow-hidden"

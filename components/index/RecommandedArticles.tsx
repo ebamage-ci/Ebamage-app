@@ -1,5 +1,5 @@
 import { LegendList, LegendListRef, ViewToken } from "@legendapp/list";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   StyleSheet,
@@ -37,9 +37,14 @@ export default function RecommandedArticles() {
     status,
   } = useClientFetchRecommandedArticles();
 
-  //   console.log("rcmd ---> ", JSON.stringify(data, null, 2));
+  //   useEffect(() => {
+  //     console.log("rcmd ---> ", JSON.stringify(data, null, 2));
+  //   }, [data]);
 
-  const rcmdData = data?.pages.flatMap((p) => p.data) ?? [];
+  const rcmdData = useMemo(
+    () => data?.pages.flatMap((p) => p.data) ?? [],
+    [data]
+  );
 
   const { errorLocal } = useLocalRecmdArticlesClient();
 
@@ -65,7 +70,7 @@ export default function RecommandedArticles() {
     ({ viewableItems }: viewabilityConfigProps) => {
       if (viewableItems?.length > 0) {
         const index = viewableItems[0].index ?? 0;
-        setCurrentIndex(index);
+        setCurrentIndex((prev) => (prev !== index ? index : prev));
       }
     },
     []

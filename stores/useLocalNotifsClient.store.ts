@@ -21,8 +21,9 @@ export const useLocalNotifsClient = create<LocalNotifsClient>((set) => ({
 
   setNotifs: async (notifs: INotif[]) => {
     try {
-      await AsyncStorage.setItem("@notifs", JSON.stringify(notifs));
-      set({ notifs });
+      const limited = Array.isArray(notifs) ? notifs.slice(0, 10) : [];
+      await AsyncStorage.setItem("@notifs", JSON.stringify(limited));
+      set({ notifs: limited });
     } catch (error) {
       console.log("Erreur setNotifs():", error);
       set({ errorLocal: true });

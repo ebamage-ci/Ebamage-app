@@ -18,13 +18,6 @@ const useClientFetchRecommandedArticles = () => {
     queryKey: ["recommandedArticles", "client", "infinite"],
     queryFn: ({ pageParam = 1 }) => fetchRecommandedArticlesClient(pageParam),
     initialPageParam: 1,
-    // getNextPageParam: (lastPage) => {
-    //   //  Vérifier s'il y a une page suivante
-    //   if (lastPage.pagination.current_page < lastPage.pagination.total) {
-    //     return lastPage.pagination.current_page + 1;
-    //   }
-    //   return undefined;
-    // },
 
     getNextPageParam: (lastPage) => {
       //  CORRECTION : total = nombre total de pages

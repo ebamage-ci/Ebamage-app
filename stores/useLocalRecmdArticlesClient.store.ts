@@ -22,11 +22,14 @@ export const useLocalRecmdArticlesClient = create<LocalRecmdArticlesClient>(
 
     setRecommandedArticles: async (recommandedArticles) => {
       try {
+        const limited = Array.isArray(recommandedArticles)
+          ? recommandedArticles.slice(0, 10)
+          : [];
         await AsyncStorage.setItem(
           "@recommandedArticles",
-          JSON.stringify(recommandedArticles)
+          JSON.stringify(limited)
         );
-        set({ recommandedArticles });
+        set({ recommandedArticles: limited });
       } catch (error) {
         console.log("Erreur setRecommandedArticles():", error);
       }

@@ -21,8 +21,9 @@ export const useLocalOrdersClient = create<LocalOrdersClient>((set) => ({
 
   setOrders: async (orders: IOrder[]) => {
     try {
-      await AsyncStorage.setItem("@orders", JSON.stringify(orders));
-      set({ orders });
+      const limited = Array.isArray(orders) ? orders.slice(0, 10) : [];
+      await AsyncStorage.setItem("@orders", JSON.stringify(limited));
+      set({ orders: limited });
     } catch (error) {
       console.log("Erreur setOrders():", error);
       set({ errorLocal: true });
