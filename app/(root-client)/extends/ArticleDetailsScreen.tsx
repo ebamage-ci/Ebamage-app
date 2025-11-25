@@ -149,7 +149,7 @@ const ArticleDetailsScreen = () => {
               Du même magasin
             </Text>
             <Text className="font-raleway-semibold text-[16px]">
-              {data?.communs.length} Articles
+              {`${data?.communs.length}`.padStart(2, "0")} Articles
             </Text>
           </View>
           <View className="max-h-[241px] flex-1">
@@ -160,9 +160,11 @@ const ArticleDetailsScreen = () => {
         {/** similar */}
         <View className="my-2 ">
           <View className="mb-3">
-            <Text className="font-raleway-semibold text-[20px]">Similaire</Text>
+            <Text className="font-raleway-semibold text-[20px]">
+              De la même catégorie
+            </Text>
             <Text className="font-raleway-semibold text-[16px]">
-              {data?.similaires.length} Articles
+              {`${data?.similaires.length}`.padStart(2, "0")} Articles
             </Text>
           </View>
           <View className=" flex-1">

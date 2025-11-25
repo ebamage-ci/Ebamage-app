@@ -4,7 +4,6 @@ import icons from "@/constants/icons";
 import { LegendList } from "@legendapp/list";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
-import ArticleItems from "@/components/global/ArticleItems";
 import CarouselOffers from "@/components/index/CarouselOffers";
 
 import { onlineManager } from "@tanstack/react-query";
@@ -25,6 +24,7 @@ import { useLocalCategoryClientStore } from "@/stores/useLocalCategoryClient.sto
 //+++ datas from api / localstore
 
 //+ categories from api / localstore
+import RecommandedArticles from "@/components/index/RecommandedArticles";
 import { useClientUpdateDeviceToken } from "@/hooks/useClientUpdateDeviceToken";
 import { useManageLoadCategoriesClient } from "@/hooks/useManageLoadCategoriesClient";
 import { usePushNotifications } from "@/hooks/usePushNotifications";
@@ -118,42 +118,63 @@ export default function HomeScreen() {
           />
         </View>
 
-        {/* Recommandations */}
-        <View className=" my-2 flex-1">
-          <Text className="font-raleway-semibold">PRODUITS RÉCENTS</Text>
-        </View>
-
-        {/* Articles Recocommandations list */}
-        <View className=" flex-1 ">
-          {/* <RecommandationItems /> */}
-          <ArticleItems />
-        </View>
-
         {/** tendance */}
 
-        <View className="flex-1 my-4 flex-row justify-between items-center p-3 rounded-lg bg-primary-300">
-          <View>
-            <Text className="font-raleway-medium text-[16px] text-white">
-              Produits en tendance
-            </Text>
-            <Text className="font-raleway text-[12px] text-white">
-              Articles du moment
-            </Text>
+        <View>
+          <View className="flex-1 my-4 flex-row justify-between items-center p-3 rounded-lg bg-primary-300">
+            <View>
+              <Text className="font-raleway-medium text-[16px] text-white">
+                Produits en tendance
+              </Text>
+              <Text className="font-raleway text-[12px] text-white">
+                Articles du moment
+              </Text>
+            </View>
+
+            <View className=" border border-white  py-2 px-4  flex-row  rounded-md justify-between items-center   ">
+              <Image
+                style={{ width: 15, height: 15 }}
+                source={icons.arrow_down}
+                resizeMode="contain"
+                tintColor={"#fff"}
+              />
+            </View>
           </View>
 
-          <View className=" border border-white  py-2 px-4  flex-row  rounded-md justify-between items-center   ">
-            <Image
-              style={{ width: 15, height: 15 }}
-              source={icons.arrow_down}
-              resizeMode="contain"
-              tintColor={"#fff"}
-            />
+          {/* tendance list */}
+          <View className=" flex-1 p-1 ">
+            <TendanceItems />
           </View>
         </View>
 
-        {/* tendance list */}
-        <View className=" flex-1 p-1 ">
-          <TendanceItems />
+        {/* All articles */}
+        <View>
+          <View className="flex-1 my-4 flex-row justify-between items-center p-3 rounded-lg bg-primary-300">
+            <View>
+              <Text className="font-raleway-medium text-[16px] text-white">
+                Produits
+              </Text>
+              <Text className="font-raleway text-[12px] text-white">
+                Tous les articles
+              </Text>
+            </View>
+
+            <View className=" border border-white  py-2 px-4  flex-row  rounded-md justify-between items-center   ">
+              <Image
+                style={{ width: 15, height: 15 }}
+                source={icons.arrow_down}
+                resizeMode="contain"
+                tintColor={"#fff"}
+              />
+            </View>
+          </View>
+
+          {/* Articles Recocommandations list */}
+          <View className=" flex-1 p-1">
+            {/* <RecommandationItems /> */}
+            {/* <ArticleItems /> */}
+            <RecommandedArticles />
+          </View>
         </View>
 
         {/* <View className="max-h-[241px] flex-1">

@@ -95,7 +95,7 @@ const ArticleItems = () => {
   );
 
   ///
-  const { data, isLoading, isError } = useClientFetchRecommandedArticles();
+  const { data, isLoading, isError } = useClientFetchRecommandedArticles(1);
 
   // console.log("-- data -- ", JSON.stringify(data, null, 2));
   // console.log("-- isLoading  -- ", isLoading);

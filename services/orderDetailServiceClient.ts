@@ -1,7 +1,6 @@
 import apiClient from "@/services/apiClient";
 import { IOrderDetailResponseClient } from "@/types/orderDetailClient.type";
 import { parseApiError } from "@/utils/parseApiError";
- 
 
 // get - order detail
 export const fetchOrderDetailServiceClient = async (
@@ -14,7 +13,7 @@ export const fetchOrderDetailServiceClient = async (
       throw response?.data;
     }
 
-    console.log("detail order ---> ", JSON.stringify(response.data, null, 2));
+    // console.log("detail order ---> ", JSON.stringify(response.data, null, 2));
 
     return response.data;
   } catch (error) {

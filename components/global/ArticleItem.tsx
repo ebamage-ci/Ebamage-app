@@ -89,24 +89,24 @@ const ArticleItem = ({ article }: { article: IRecommandedArticleClient }) => {
   return (
     <Pressable
       android_ripple={{
-        color: "rgba(0, 0, 0, 0.2)",
+        color: "#EAF9F1",
         foreground: true,
       }}
       onPress={onArticleClickHandle}
       style={({ pressed }) => [
-        { opacity: pressed ? 0.8 : 1 }, // effet press iOS
-        { width: 170 },
+        { opacity: pressed ? 0.8 : 1 },
+        { width: 142 },
       ]}
-      className="rounded-md ">
+      className="rounded-md">
       <View
-        className="rounded-md bg-white overflow-hidden w-[170px]"
+        className="rounded-md bg-white overflow-hidden"
         style={styles.itemShadow}>
         <Image
           source={image ? { uri: image } : images.shoesarticle}
-          className="rounded-md w-[170px] h-[124px]"
+          className="rounded-[4px] w-full h-[100px]"
         />
 
-        <View className="p-2 w-full">
+        <View className="p-2 w-full h-[100px] bg-primary-50">
           <Text
             className="text-[12px] font-raleway-medium"
             numberOfLines={2}
@@ -125,7 +125,7 @@ const ArticleItem = ({ article }: { article: IRecommandedArticleClient }) => {
             {prix} FCFA
           </Text>
 
-          <View className="flex-row items-center gap-x-2 mt-1">
+          <View className="flex-row items-center gap-x-2 mt-1 ">
             {old_price && (
               <>
                 <Text className="font-raleway-light text-[12px] text-gray-400 line-through">
@@ -146,11 +146,10 @@ const ArticleItem = ({ article }: { article: IRecommandedArticleClient }) => {
 const styles = StyleSheet.create({
   itemShadow: {
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
-    elevation: 5,
-    height: 230,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
 });
 
