@@ -20,6 +20,10 @@
         "image": "./assets/icons/ebamage.png",
         "resizeMode": "contain",
         "backgroundColor": "#ffffff"
+      },
+      "bundleIdentifier": "com.devjudicael.ebamage",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {

@@ -1,6 +1,6 @@
 export interface ITownsCityResponseClient {
   data: {
-    hashid: number;
+    hashid: string;
     lib_commune: string;
   }[];
   success: boolean;

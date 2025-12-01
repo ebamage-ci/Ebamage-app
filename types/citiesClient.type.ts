@@ -1,6 +1,6 @@
 export interface ICitiesResponsesClient {
   data: {
-    hashid: number;
+    hashid: string;
     lib_ville: string;
   }[];
   success: boolean;

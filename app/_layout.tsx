@@ -2,11 +2,13 @@ import "@/app/global.css";
 import { useAppFocusManager } from "@/hooks/useAppFocusManager";
 import { useOnlineManager } from "@/hooks/useOnlineManager";
 import { useAuthClientStore } from "@/stores/useAuthClient.store";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
 
 // Empêche le splash screen de se cacher automatiquement
@@ -72,20 +74,27 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Protected guard={isClientConnected}>
-          <Stack.Screen name="(root-client)" options={{ headerShown: false }} />
-        </Stack.Protected>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <BottomSheetModalProvider>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+            }}>
+            <Stack.Protected guard={isClientConnected}>
+              <Stack.Screen
+                name="(root-client)"
+                options={{ headerShown: false }}
+              />
+            </Stack.Protected>
 
-        <Stack.Protected guard={!isClientConnected}>
-          <Stack.Screen name="auth" options={{ headerShown: false }} />
-        </Stack.Protected>
+            <Stack.Protected guard={!isClientConnected}>
+              <Stack.Screen name="auth" options={{ headerShown: false }} />
+            </Stack.Protected>
 
-        <Stack.Screen name="+not-found" />
-      </Stack>
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
     </QueryClientProvider>
   );
 }
