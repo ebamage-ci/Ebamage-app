@@ -35,7 +35,7 @@ export default function HomeScreen() {
               await logout(); // Zustand cleanup + navigation
               setTimeout(() => {
                 router.replace("/auth");
-                console.log("success logout");
+                // console.log("success logout");
               }, 0);
             },
             onError: () => {

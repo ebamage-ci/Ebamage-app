@@ -63,6 +63,6 @@ export const useAuthClientStore = create<AuthClientStore>((set) => ({
     await AsyncStorage.clear();
     set({ user: null, isConnected: false });
     // router.replace("/auth");
-    console.log("logout store");
+    // console.log("logout store");
   },
 }));
