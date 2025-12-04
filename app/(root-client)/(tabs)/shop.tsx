@@ -28,7 +28,7 @@ const shop = () => {
         </View>
 
         {/* Liste des boutiques */}
-        <View className="flex-1 p-1">
+        <View className="flex-1 p-1 ">
           <ShopItems />
         </View>
       </View>

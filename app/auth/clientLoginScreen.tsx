@@ -101,6 +101,8 @@ export default function ShopSignupScreen() {
           tel_clt: data.data.tel_clt,
           token: data.token,
         });
+
+        router.replace("/(root-client)/(tabs)");
       },
 
       onError: (error: any) => {

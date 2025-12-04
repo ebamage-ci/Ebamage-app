@@ -1,5 +1,7 @@
 import { Tabs } from "expo-router";
 
+import { useAuthClientStore } from "@/stores/useAuthClient.store";
+
 import CustomTabBarButtonIcon from "@/components/global/CustomTabBarButtonIcon";
 import TabIcon from "@/components/global/TabIcon";
 import HeaderIndex from "@/components/index/HeaderIndex";
@@ -7,6 +9,8 @@ import HeaderSetting from "@/components/settings/HeaderSetting";
 import icons from "@/constants/icons";
 
 export default function TabsLayout() {
+  const { isConnected: isClientConnected } = useAuthClientStore();
+
   return (
     <Tabs
       screenOptions={{
@@ -90,26 +94,28 @@ export default function TabsLayout() {
         }}
       />
 
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: "settings",
-          tabBarHideOnKeyboard: true,
-          tabBarButton: (props) => <CustomTabBarButtonIcon {...props} />,
-          // headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              icon={icons.settingstab}
-              label="parametres"
-              iconFocused={icons.settingstabFocused}
-            />
-          ),
-          header: () => {
-            return <HeaderSetting />;
-          },
-        }}
-      />
+      <Tabs.Protected guard={isClientConnected}>
+        <Tabs.Screen
+          name="settings"
+          options={{
+            title: "settings",
+            tabBarHideOnKeyboard: true,
+            tabBarButton: (props) => <CustomTabBarButtonIcon {...props} />,
+            // headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <TabIcon
+                focused={focused}
+                icon={icons.settingstab}
+                label="parametres"
+                iconFocused={icons.settingstabFocused}
+              />
+            ),
+            header: () => {
+              return <HeaderSetting />;
+            },
+          }}
+        />
+      </Tabs.Protected>
     </Tabs>
   );
 }

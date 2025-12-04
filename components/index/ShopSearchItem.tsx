@@ -36,7 +36,8 @@ const ShopSearchItem = ({ item }: ShopSearchItemProps) => {
       />
       <Text
         className="text-center text-sm font-raleway-semibold text-gray-800"
-        numberOfLines={2}>
+        numberOfLines={2}
+        ellipsizeMode="tail">
         {nom_btq}
       </Text>
     </TouchableOpacity>

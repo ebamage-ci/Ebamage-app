@@ -5,10 +5,16 @@ import SettingItem from "@/components/settings/SettingItem";
 import { router } from "expo-router";
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 
+import { useClientDeleteAccount } from "@/hooks/useClientDeleteAccount";
+import { useClientLogout } from "@/hooks/useClientLogout";
 import { useAuthClientStore } from "@/stores/useAuthClient.store";
+
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function HomeScreen() {
   const { logout } = useAuthClientStore();
+  const { mutate: logoutClient } = useClientLogout();
+  const { mutate: deleteClientAccount } = useClientDeleteAccount();
 
   // logout
   const onLogoutClickHandler = async () => {
@@ -19,11 +25,52 @@ export default function HomeScreen() {
       },
       {
         text: "Se deconnecter",
+        // onPress: async () => {
+        //   await logout();
+        // },
+
         onPress: async () => {
-          await logout();
+          logoutClient(undefined, {
+            onSuccess: async () => {
+              router.replace("/auth");
+              // await logout(); // Zustand cleanup + navigation
+
+              console.log("success logout");
+            },
+            onError: () => {
+              Alert.alert("Erreur", "Impossible de vous déconnecter.");
+            },
+          });
         },
       },
     ]);
+  };
+
+  // delete account
+  const onDeleteAccountClickHandler = async () => {
+    Alert.alert(
+      "Suppression de compte",
+      "Êtes-vous sûr de vouloir supprimer votre compte ? cette action est irréversible",
+      [
+        {
+          text: "Annuler",
+          style: "cancel",
+        },
+        {
+          text: "Supprimer",
+          onPress: () => {
+            deleteClientAccount(undefined, {
+              onSuccess: () => {
+                logout(); // Zustand cleanup + navigation
+              },
+              onError: () => {
+                Alert.alert("Erreur", "Impossible de supprimer votre compte.");
+              },
+            });
+          },
+        },
+      ]
+    );
   };
 
   return (
@@ -54,6 +101,13 @@ export default function HomeScreen() {
             icon={<HistoryIcon fill={"#777E90"} />}
             onPress={() => router.push("/(root-client)/extends/OrdersScreen")}
           />
+
+          <SettingItem
+            label="Supprimer mon compte"
+            icon={<AntDesign name="delete" size={20} color="#930e0e" />}
+            onPress={onDeleteAccountClickHandler}
+          />
+
           {/* <SettingItem
             label="Centre d'aide"
             icon={<HelpCenterIcon fill={"#777E90"} />}

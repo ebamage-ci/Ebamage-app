@@ -28,7 +28,7 @@ const SettingItem = ({ label, icon, onPress }: SettingItemProps) => {
         </Text>
       </View>
 
-      {label !== "Déconnexion" && (
+      {label !== "Déconnexion" && label !== "Supprimer mon compte" && (
         <View>
           <ArrowRight />
         </View>

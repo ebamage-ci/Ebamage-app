@@ -7,6 +7,7 @@ import { useClientAddArticleCart } from "@/hooks/useClientAddArticleCart";
 import { useAuthClientStore } from "@/stores/useAuthClient.store";
 import { useLocalCartArticlesClient } from "@/stores/useLocalCartArticlesClient.store";
 import { variation } from "@/types/articlesCartClient.type";
+import { router } from "expo-router";
 
 interface ArticleActionsProps {
   article?: IArticleDetailResponseClient["data"];
@@ -25,7 +26,7 @@ const ArticleActions = ({
   article,
   selectedVariations = {},
 }: ArticleActionsProps) => {
-  const { user } = useAuthClientStore();
+  const { user, isConnected } = useAuthClientStore();
   const { setCart, setIdPanier } = useLocalCartArticlesClient();
 
   const { mutate: mutateCart, isPending } = useClientAddArticleCart();
@@ -34,6 +35,28 @@ const ArticleActions = ({
 
   // add to cart
   const handleAddToCart = () => {
+    // si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion
+    if (!isConnected) {
+      Alert.alert(
+        "Connexion nécessaire",
+        "Vous devez être connecté pour ajouter des articles au panier.",
+        [
+          {
+            text: "Se connecter",
+            onPress: () => {
+              // Naviguer vers la page de connexion
+              router.push("/auth");
+            },
+          },
+          {
+            text: "Annuler",
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+    }
+
     if (article) {
       const data = {
         id_article: article?.hashid,

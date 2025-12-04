@@ -1,6 +1,5 @@
 import { IUserStorage } from "@/types/authclient.type";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { router } from "expo-router";
 import { create } from "zustand";
 
 interface AuthClientStore {
@@ -63,6 +62,7 @@ export const useAuthClientStore = create<AuthClientStore>((set) => ({
   logout: async () => {
     await AsyncStorage.clear();
     set({ user: null, isConnected: false });
-    router.replace("/auth");
+    // router.replace("/auth");
+    console.log("logout store");
   },
 }));

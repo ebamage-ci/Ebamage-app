@@ -30,7 +30,7 @@ const CartArticlesScreen = () => {
   const { user } = useAuthClientStore();
 
   ///
-  const { data, isLoading, isError, isPaused } = useClientFetchArticleCart(
+  const { data, isLoading, isError } = useClientFetchArticleCart(
     user?.token + ""
   );
 

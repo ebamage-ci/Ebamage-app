@@ -32,7 +32,7 @@ import { useAuthClientStore } from "@/stores/useAuthClient.store";
 import { useEffect } from "react";
 
 export default function HomeScreen() {
-  const { user } = useAuthClientStore();
+  const { user, isConnected } = useAuthClientStore();
   const { expoPushToken } = usePushNotifications();
   const { mutate: updateDeviceToken } = useClientUpdateDeviceToken();
 
@@ -40,7 +40,7 @@ export default function HomeScreen() {
     // console.log(">>> useEffect triggered");
     // console.log("expoPushToken =", expoPushToken);
     // console.log("user?.hashid_clt =", user?.hashid_clt);
-    if (expoPushToken && user?.hashid_clt) {
+    if (expoPushToken && isConnected && user?.hashid_clt) {
       // console.log("gooooooooooo");
 
       // update
@@ -52,7 +52,13 @@ export default function HomeScreen() {
         },
       });
     }
-  }, [expoPushToken, user?.token, user?.hashid_clt, updateDeviceToken]);
+  }, [
+    expoPushToken,
+    isConnected,
+    user?.token,
+    user?.hashid_clt,
+    updateDeviceToken,
+  ]);
 
   // console.log("-- expoPushToken --> ", expoPushToken);
 

@@ -1,7 +1,7 @@
 import { CustomButton } from "@/components/global/CustomButton";
 import PageWrapper from "@/components/global/PageWrapper";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { RadioButton } from "react-native-paper";
 
@@ -55,8 +55,6 @@ const DeliveryScreen = () => {
     lib_commune: "",
   });
 
-  // const [selectedCity, setSelectedCity] = useState("");
-  const [selectedTown, setSelectedTown] = useState("");
   const [quartier, setQuartier] = useState("");
 
   const { data: deliveryPriceData } = useFetchDeliveryPriceClient(
@@ -70,28 +68,21 @@ const DeliveryScreen = () => {
     locationCity?.lib_ville
   );
 
-  // Réinitialiser la commune sélectionnée lorsque la ville change
-  useEffect(() => {
-    if (locationCity?.lib_ville) {
-      setSelectedTown("");
-    }
-  }, [locationCity]);
-
   // payment mode state
   const [option, setOption] = useState<"opt1" | "opt2">("opt2");
 
   const onCommandHandler = () => {
-    console.log(
-      JSON.stringify(
-        {
-          city: locationCity?.lib_ville,
-          town: locationTown?.lib_commune,
-          quartier: quartier,
-        },
-        null,
-        2
-      )
-    );
+    // console.log(
+    //   JSON.stringify(
+    //     {
+    //       city: locationCity?.lib_ville,
+    //       town: locationTown?.lib_commune,
+    //       quartier: quartier,
+    //     },
+    //     null,
+    //     2
+    //   )
+    // );
 
     if (
       locationCity?.lib_ville === "" ||

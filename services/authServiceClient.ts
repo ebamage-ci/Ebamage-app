@@ -7,7 +7,6 @@ import {
   IVerifOtpResponseClient,
 } from "@/types/authclient.type";
 import { parseApiError } from "@/utils/parseApiError";
- 
 
 // signup client
 export const signupClient = async (
@@ -70,6 +69,37 @@ export const resendOtpClient = async (email: string) => {
     const response = await apiClient.post(`/resend/otp/client`, {
       email_clt: email,
     });
+
+    if (!response?.data?.success) {
+      throw response?.data;
+    }
+
+    return response?.data;
+  } catch (error: any) {
+    throw parseApiError(error);
+  }
+};
+
+// logout client
+export const logoutClient = async () => {
+  try {
+    const response = await apiClient.post(`/client/deconnexion`);
+
+    if (!response?.data?.success) {
+      throw response?.data;
+    }
+
+    return response?.data;
+  } catch (error: any) {
+    throw parseApiError(error);
+  }
+};
+// delete client account
+export const deleteClientAccount = async () => {
+  try {
+    const response = await apiClient.post(`/client/delete`);
+
+    console.log("delete client account", response?.data);
 
     if (!response?.data?.success) {
       throw response?.data;
