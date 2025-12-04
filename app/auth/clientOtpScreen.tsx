@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 
 import OtpInputs from "@/components/auth/OtpInputs";
@@ -140,7 +140,7 @@ export default function ClientOtpScreen() {
           token: data?.token,
         });
 
-        router.replace("/(root-client)/(tabs)");
+        // router.replace("/(root-client)/(tabs)");
       },
 
       onError: (error) => {

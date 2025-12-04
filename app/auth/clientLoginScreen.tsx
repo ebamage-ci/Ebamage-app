@@ -102,7 +102,7 @@ export default function ShopSignupScreen() {
           token: data.token,
         });
 
-        router.replace("/(root-client)/(tabs)");
+        // router.replace("/(root-client)/(tabs)");
       },
 
       onError: (error: any) => {

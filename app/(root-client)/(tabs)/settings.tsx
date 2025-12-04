@@ -32,10 +32,11 @@ export default function HomeScreen() {
         onPress: async () => {
           logoutClient(undefined, {
             onSuccess: async () => {
-              router.replace("/auth");
-              // await logout(); // Zustand cleanup + navigation
-
-              console.log("success logout");
+              await logout(); // Zustand cleanup + navigation
+              setTimeout(() => {
+                router.replace("/auth");
+                console.log("success logout");
+              }, 0);
             },
             onError: () => {
               Alert.alert("Erreur", "Impossible de vous déconnecter.");

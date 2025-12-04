@@ -80,9 +80,9 @@ export default function RootLayout() {
             screenOptions={{
               headerShown: false,
             }}>
-            {/* <Stack.Protected guard={!isClientConnected}> */}
-            <Stack.Screen name="auth" options={{ headerShown: false }} />
-            {/* </Stack.Protected> */}
+            <Stack.Protected guard={!isClientConnected}>
+              <Stack.Screen name="auth" options={{ headerShown: false }} />
+            </Stack.Protected>
 
             <Stack.Screen
               name="(root-client)"
