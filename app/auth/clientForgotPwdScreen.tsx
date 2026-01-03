@@ -103,7 +103,9 @@ export default function ClientForgotPwdScreen() {
             paddingTop: 30,
           }}>
           <View className="bg-white h-full  p-4">
-            <Text className="font-raleway-bold text-[36px]">Bon retour!</Text>
+            <Text className="font-raleway-bold text-[36px]">
+              Entrez votre mail pour réinitialiser votre mot de passe!
+            </Text>
 
             {/** inputs form */}
             <View className=" justify-center items-center">
@@ -131,7 +133,7 @@ export default function ClientForgotPwdScreen() {
 
             <View className="my-10">
               <CustomButton
-                label={isPending ? "Connexion..." : "Se connecter"}
+                label={isPending ? "Verification..." : "Verifier"}
                 onPress={handleSubmit}
                 disabled={isPending}
               />

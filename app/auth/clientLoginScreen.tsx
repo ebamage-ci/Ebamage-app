@@ -195,7 +195,10 @@ export default function ShopSignupScreen() {
               <Text className="text-[14px] text-gray-500 font-raleway-regular mr-2">
                 Vous n&apos;avez pas de compte ?
               </Text>
-              <TouchableOpacity onPress={() => router.back()}>
+              <TouchableOpacity
+                onPress={() => {
+                  router.push("/auth/clientSignupScreen");
+                }}>
                 <Text className="text-[14px] underline font-raleway-bold text-primary">
                   Inscrivez-vous!
                 </Text>

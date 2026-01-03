@@ -251,7 +251,7 @@ export default function ClientSignupScreen() {
 
             <View className="my-10">
               <CustomButton
-                label={`${isPending ? "Chargement..." : "Créer mon compte"}`}
+                label={`${isPending ? "Création..." : "Créer mon compte"}`}
                 onPress={handleSubmit}
                 disabled={isPending}
               />

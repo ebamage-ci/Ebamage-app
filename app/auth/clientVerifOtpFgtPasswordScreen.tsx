@@ -164,7 +164,7 @@ export default function ClientVerifOtpFgtPasswordScreen() {
           <View className="bg-white flex-1 h-screen  p-4">
             <View className="justify-center items-center">
               <Text className="font-raleway-bold text-[30px]  leading-[43px]">
-                Nous vous avons envoyé un code de vérification
+                Nous vous avons envoyé un code de vérification à
               </Text>
             </View>
 

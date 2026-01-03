@@ -87,7 +87,10 @@ export default function ClientNewFgtPasswordScreen() {
   };
 
   return (
-    <PaperProvider>
+    <PaperProvider
+      theme={{
+        dark: false,
+      }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -98,36 +101,40 @@ export default function ClientNewFgtPasswordScreen() {
           <Text className="font-raleway-bold text-[30px] mb-10">
             Nouveau mot de passe
           </Text>
+          {/** inputs form */}
+          <View className=" justify-center items-center">
+            <View>
+              {/* Nouveau mot de passe */}
+              <CustomInput
+                label="Nouveau mot de passe"
+                placeholder="Entrez votre mot de passe"
+                value={password}
+                onChangeText={setPassword}
+                leftIcon={icons.group}
+                rightIcon={showPassword ? "eye-off" : "eye"}
+                isPassword={!showPassword}
+                onRightIconPress={() => setShowPassword((v) => !v)}
+                error={touchedFields.password && !validation.isPasswordValid}
+                errorMsg={validation.passwordError}
+                onBlur={() => handleBlur("password")}
+              />
 
-          {/* Nouveau mot de passe */}
-          <CustomInput
-            label="Nouveau mot de passe"
-            placeholder="Entrez votre mot de passe"
-            value={password}
-            onChangeText={setPassword}
-            leftIcon={icons.group}
-            rightIcon={showPassword ? "eye-off" : "eye"}
-            isPassword={!showPassword}
-            onRightIconPress={() => setShowPassword((v) => !v)}
-            error={touchedFields.password && !validation.isPasswordValid}
-            errorMsg={validation.passwordError}
-            onBlur={() => handleBlur("password")}
-          />
-
-          {/* Confirmation */}
-          <CustomInput
-            label="Confirmation du mot de passe"
-            placeholder="Confirmez le mot de passe"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            leftIcon={icons.group}
-            rightIcon={showConfirmPassword ? "eye-off" : "eye"}
-            isPassword={!showConfirmPassword}
-            onRightIconPress={() => setShowConfirmPassword((v) => !v)}
-            error={touchedFields.confirmPassword && !isConfirmPasswordValid}
-            errorMsg={confirmPasswordError}
-            onBlur={() => handleBlur("confirmPassword")}
-          />
+              {/* Confirmation */}
+              <CustomInput
+                label="Confirmation du mot de passe"
+                placeholder="Confirmez le mot de passe"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                leftIcon={icons.group}
+                rightIcon={showConfirmPassword ? "eye-off" : "eye"}
+                isPassword={!showConfirmPassword}
+                onRightIconPress={() => setShowConfirmPassword((v) => !v)}
+                error={touchedFields.confirmPassword && !isConfirmPasswordValid}
+                errorMsg={confirmPasswordError}
+                onBlur={() => handleBlur("confirmPassword")}
+              />
+            </View>
+          </View>
 
           <View className="my-10">
             <CustomButton
