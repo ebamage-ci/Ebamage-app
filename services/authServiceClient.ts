@@ -1,9 +1,12 @@
 import apiClient from "@/services/apiClient";
 import {
+  INewPasswordForgotPasswordPayload,
+  IStandardResponse,
   IUserSignInClient,
   IUserSignUpClient,
   IUserSignupResponseClient,
   IVerifOtpClient,
+  IVerifOtpForgotPasswordPayload,
   IVerifOtpResponseClient,
 } from "@/types/authclient.type";
 import { parseApiError } from "@/utils/parseApiError";
@@ -107,6 +110,64 @@ export const deleteClientAccount = async () => {
 
     return response?.data;
   } catch (error: any) {
+    throw parseApiError(error);
+  }
+};
+
+// forgot - password
+export const forgotPassword = async (data: {
+  email: string;
+}): Promise<IStandardResponse> => {
+  try {
+    const response = await apiClient.post<IStandardResponse>(
+      `/demande/reinitialisation/password`,
+      data
+    );
+
+    // console.log("data ===> ", JSON.stringify(data, null, 2));
+    // console.log("response ===> ", JSON.stringify(response.data, null, 2));
+
+    if (!response?.data?.success) {
+      throw response?.data;
+    }
+    return response.data;
+  } catch (error) {
+    throw parseApiError(error);
+  }
+};
+
+// verify otp for forgot password
+export const verifyOtpForgotPassword = async (
+  verifData: IVerifOtpForgotPasswordPayload
+): Promise<IStandardResponse> => {
+  try {
+    const response = await apiClient.post<IStandardResponse>(
+      `/verification/token/password`,
+      verifData
+    );
+    if (!response?.data?.success) {
+      throw response?.data;
+    }
+    return response.data;
+  } catch (error) {
+    throw parseApiError(error);
+  }
+};
+
+// new password for forgot password
+export const newPasswordForgotPassword = async (
+  newPasswordData: INewPasswordForgotPasswordPayload
+): Promise<IStandardResponse> => {
+  try {
+    const response = await apiClient.post<IStandardResponse>(
+      `/reinitialisation/password`,
+      newPasswordData
+    );
+    if (!response?.data?.success) {
+      throw response?.data;
+    }
+    return response.data;
+  } catch (error) {
     throw parseApiError(error);
   }
 };

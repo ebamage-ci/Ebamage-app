@@ -63,6 +63,10 @@ export default function HomeScreen() {
             deleteClientAccount(undefined, {
               onSuccess: () => {
                 logout(); // Zustand cleanup + navigation
+                setTimeout(() => {
+                  router.replace("/auth");
+                  // console.log("success delete account");
+                }, 0);
               },
               onError: () => {
                 Alert.alert("Erreur", "Impossible de supprimer votre compte.");

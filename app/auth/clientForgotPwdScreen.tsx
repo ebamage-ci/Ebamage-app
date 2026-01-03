@@ -14,38 +14,23 @@ import { PaperProvider } from "react-native-paper";
 import { CustomButton } from "@/components/global/CustomButton";
 import { useState } from "react";
 
-import { useClientSignIn } from "@/hooks/useClientSignIn";
-import useSignInValidationClient from "@/validations/useSignInValidationClient";
-
-import { useAuthClientStore } from "@/stores/useAuthClient.store";
+import useForgotPassword from "@/hooks/useForgotPassword";
+import useForgotPasswordValidation from "@/validations/useForgotPasswordValidation";
 import { router } from "expo-router";
 
-export default function ShopSignupScreen() {
+export default function ClientForgotPwdScreen() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const { setIsConnected, setUser } = useAuthClientStore();
-
-  const [isModePassword1, setIsModePassword1] = useState(false);
-
-  const { mutate, isPending } = useClientSignIn();
+  const { mutate, isPending } = useForgotPassword();
 
   // schemas
-  const {
-    isMailValid,
-    mailError,
-    isPasswordValid,
-    passwordError,
-    isUserDatasValid,
-  } = useSignInValidationClient({
-    email_clt: email,
-    password_clt: password,
+  const { isMailValid, mailError } = useForgotPasswordValidation({
+    email,
   });
 
   // États pour suivre si les champs ont été touchés
   const [touchedFields, setTouchedFields] = useState({
     email: false,
-    password: false,
   });
 
   // Fonction pour marquer un champ comme touché
@@ -60,65 +45,45 @@ export default function ShopSignupScreen() {
     // Marquer tous les champs comme touchés pour afficher toutes les erreurs
     setTouchedFields({
       email: true,
-
-      password: true,
     });
 
     //--- invalidation
-    if (!isUserDatasValid) {
-      Alert.alert(
-        "Erreur de soumission",
-        "veuillez respecter le format des données",
-        [
-          {
-            text: "Retour",
-            style: "cancel",
-          },
-        ]
-      );
+    if (!isMailValid) {
+      Alert.alert("Erreur d'email", "veuillez entrer un mail correcte", [
+        {
+          text: "Retour",
+          style: "cancel",
+        },
+      ]);
 
       return;
     }
 
-    //--- validation
-    const datas = {
-      email_clt: email,
-      password_clt: password,
-    };
-
     // submit
-    mutate(datas, {
-      onSuccess: (data) => {
-        // console.log("on success");
-
-        // storage store
-        setIsConnected(true);
-        setUser({
-          email_clt: data.data.email_clt,
-          hashid_clt: data.data.hashid,
-          nom_clt: data.data.nom_clt,
-          solde_tdl: data.data.solde_tdl,
-          tel_clt: data.data.tel_clt,
-          token: data.token,
-        });
-
-        // router.replace("/(root-client)/(tabs)");
+    mutate(
+      {
+        email,
       },
-
-      onError: (error: any) => {
-        // console.log(error);
-        Alert.alert(
-          "Erreur de connexion ",
-          error?.message || " une erreur s'est produite ",
-          [
-            {
-              text: "Retour",
-              style: "cancel",
+      {
+        onSuccess: (data) => {
+          // go to otp form
+          router.push({
+            pathname: "/auth/clientVerifOtpFgtPasswordScreen",
+            params: {
+              email,
             },
-          ]
-        );
-      },
-    });
+          });
+        },
+
+        onError: (error: any) => {
+          // error
+          Alert.alert(
+            "Erreur",
+            error.message || "Une erreur est survenue, veuillez réessayer."
+          );
+        },
+      }
+    );
   };
 
   return (
@@ -153,34 +118,15 @@ export default function ShopSignupScreen() {
                   errorMsg={mailError}
                   onBlur={() => handleBlur("email")}
                 />
-
-                <CustomInput
-                  label="Mot de passe"
-                  value={password}
-                  onChangeText={setPassword}
-                  placeholder="Confirmer le mot de psse"
-                  rightIcon={isModePassword1 ? "eye-off" : "eye"}
-                  leftIcon={icons.group}
-                  isPassword={isModePassword1}
-                  onRightIconPress={() => {
-                    setIsModePassword1((value) => !value);
-                  }}
-                  error={touchedFields.password && !isPasswordValid}
-                  errorMsg={passwordError}
-                  onBlur={() => handleBlur("password")}
-                />
               </View>
 
-              <View className="w-full items-end mt-2">
-                <TouchableOpacity
-                  onPress={() => {
-                    router.push("/auth/clientForgotPwdScreen");
-                  }}>
+              {/* <View className="w-full items-end mt-2">
+                <TouchableOpacity>
                   <Text className="text-[14px] font-raleway-bold text-primary">
                     mot de passe oublié ?
                   </Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
 
             <View className="my-10">
@@ -195,7 +141,8 @@ export default function ShopSignupScreen() {
               <Text className="text-[14px] text-gray-500 font-raleway-regular mr-2">
                 Vous n&apos;avez pas de compte ?
               </Text>
-              <TouchableOpacity onPress={() => router.back()}>
+              <TouchableOpacity
+                onPress={() => router.push("/auth/clientSignupScreen")}>
                 <Text className="text-[14px] underline font-raleway-bold text-primary">
                   Inscrivez-vous!
                 </Text>
