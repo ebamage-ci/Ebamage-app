@@ -1,13 +1,13 @@
 import { INotif } from "@/types/notifClient.type";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storage } from "@/stores/mmkv";
 import { create } from "zustand";
 
 interface LocalNotifsClient {
   notifs: INotif[];
   errorLocal: boolean;
-  setNotifs: (notifs: INotif[]) => Promise<void>;
-  loadNotifs: () => Promise<void>;
-  resetNotifs: () => Promise<void>;
+  setNotifs: (notifs: INotif[]) => void;
+  loadNotifs: () => void;
+  resetNotifs: () => void;
   setErrorLocal: (val: boolean) => void;
 }
 
@@ -19,10 +19,10 @@ export const useLocalNotifsClient = create<LocalNotifsClient>((set) => ({
     set({ errorLocal: val });
   },
 
-  setNotifs: async (notifs: INotif[]) => {
+  setNotifs: (notifs: INotif[]) => {
     try {
       const limited = Array.isArray(notifs) ? notifs.slice(0, 10) : [];
-      await AsyncStorage.setItem("@notifs", JSON.stringify(limited));
+      storage.set("@notifs", JSON.stringify(limited));
       set({ notifs: limited });
     } catch (error) {
       console.log("Erreur setNotifs():", error);
@@ -30,9 +30,9 @@ export const useLocalNotifsClient = create<LocalNotifsClient>((set) => ({
     }
   },
 
-  loadNotifs: async () => {
+  loadNotifs: () => {
     try {
-      const data = await AsyncStorage.getItem("@notifs");
+      const data = storage.getString("@notifs");
       const notifs = data ? JSON.parse(data) : [];
       set({ notifs, errorLocal: false });
     } catch (error) {
@@ -41,9 +41,9 @@ export const useLocalNotifsClient = create<LocalNotifsClient>((set) => ({
     }
   },
 
-  resetNotifs: async () => {
+  resetNotifs: () => {
     try {
-      await AsyncStorage.removeItem("@notifs");
+      storage.remove("@notifs");
       set({ notifs: [] });
     } catch (error) {
       console.log("Erreur resetNotifs():", error);

@@ -1,14 +1,14 @@
 import { ITendanceArticleClient } from "@/types/tendanceArticleClient.type";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storage } from "@/stores/mmkv";
 import { create } from "zustand";
 
 interface LocalTendancesArticlesClient {
   tendancesArticles: ITendanceArticleClient[] | [];
   setTendancesArticles: (
     tendancesArticles: ITendanceArticleClient[]
-  ) => Promise<void>;
-  loadTendancesArticles: () => Promise<void>;
-  resetTendancesArticles: () => Promise<void>;
+  ) => void;
+  loadTendancesArticles: () => void;
+  resetTendancesArticles: () => void;
   errorLocal: boolean;
   setErrorLocal: (val: boolean) => void;
 }
@@ -20,24 +20,21 @@ export const useLocalTendancesArticlesClient =
 
     setErrorLocal: (val) => set({ errorLocal: val }),
 
-    setTendancesArticles: async (tendancesArticles) => {
+    setTendancesArticles: (tendancesArticles) => {
       try {
         const limited = Array.isArray(tendancesArticles)
           ? tendancesArticles.slice(0, 10)
           : [];
-        await AsyncStorage.setItem(
-          "@tendancesArticles",
-          JSON.stringify(limited)
-        );
+        storage.set("@tendancesArticles", JSON.stringify(limited));
         set({ tendancesArticles: limited });
       } catch (error) {
         console.log("Erreur setTendancesArticles():", error);
       }
     },
 
-    loadTendancesArticles: async () => {
+    loadTendancesArticles: () => {
       try {
-        const data = await AsyncStorage.getItem("@tendancesArticles");
+        const data = storage.getString("@tendancesArticles");
         const tendancesArticles = data ? JSON.parse(data) : [];
         set({ tendancesArticles, errorLocal: false });
       } catch (error) {
@@ -46,9 +43,9 @@ export const useLocalTendancesArticlesClient =
       }
     },
 
-    resetTendancesArticles: async () => {
+    resetTendancesArticles: () => {
       try {
-        await AsyncStorage.removeItem("@tendancesArticles");
+        storage.remove("@tendancesArticles");
         set({ tendancesArticles: [] });
       } catch (error) {
         console.log("Erreur resetTendancesArticles():", error);

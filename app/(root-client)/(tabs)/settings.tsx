@@ -29,10 +29,10 @@ export default function HomeScreen() {
         //   await logout();
         // },
 
-        onPress: async () => {
+        onPress: () => {
           logoutClient(undefined, {
-            onSuccess: async () => {
-              await logout(); // Zustand cleanup + navigation
+            onSuccess: () => {
+              logout();
               setTimeout(() => {
                 router.replace("/auth");
                 // console.log("success logout");

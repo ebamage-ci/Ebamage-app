@@ -1,12 +1,12 @@
 import { IShop } from "@/types/shop.type";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storage } from "@/stores/mmkv";
 import { create } from "zustand";
 
 interface LocalShopsStore {
   shops: IShop[] | [];
-  setShops: (shops: IShop[]) => Promise<void>;
-  loadShops: () => Promise<void>;
-  resetShops: () => Promise<void>;
+  setShops: (shops: IShop[]) => void;
+  loadShops: () => void;
+  resetShops: () => void;
   errorLocal: boolean;
   setErrorLocal: (val: boolean) => void;
 }
@@ -17,18 +17,18 @@ export const useLocalShopsStore = create<LocalShopsStore>((set) => ({
 
   setErrorLocal: (val) => set({ errorLocal: val }),
 
-  setShops: async (shops) => {
+  setShops: (shops) => {
     try {
-      await AsyncStorage.setItem("@shops", JSON.stringify(shops));
+      storage.set("@shops", JSON.stringify(shops));
       set({ shops });
     } catch (error) {
       console.log("Erreur setShops():", error);
     }
   },
 
-  loadShops: async () => {
+  loadShops: () => {
     try {
-      const data = await AsyncStorage.getItem("@shops");
+      const data = storage.getString("@shops");
       const shops = data ? JSON.parse(data) : [];
       set({ shops, errorLocal: false });
     } catch (error) {
@@ -37,9 +37,9 @@ export const useLocalShopsStore = create<LocalShopsStore>((set) => ({
     }
   },
 
-  resetShops: async () => {
+  resetShops: () => {
     try {
-      await AsyncStorage.removeItem("@shops");
+      storage.remove("@shops");
       set({ shops: [] });
     } catch (error) {
       console.log("Erreur resetShops():", error);

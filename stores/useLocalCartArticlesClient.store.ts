@@ -1,5 +1,5 @@
+import { storage } from "@/stores/mmkv";
 import { articleItemCart } from "@/types/articlesCartClient.type";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 
 interface LocalCartClient {
@@ -8,14 +8,13 @@ interface LocalCartClient {
   errorLocal: boolean;
   id_panier: string;
   setIdPanier: (id_panier: string) => void;
-  setCart: (cart: articleItemCart[]) => Promise<void>;
+  setCart: (cart: articleItemCart[]) => void;
   setPrixTotal: (prix_total: number) => void;
-  loadCart: () => Promise<void>;
-  resetCart: () => Promise<void>;
+  loadCart: () => void;
+  resetCart: () => void;
   setErrorLocal: (val: boolean) => void;
 }
 
-// fn calculate total price of cart
 const calculateTotal = (cart: articleItemCart[]): number => {
   return cart.reduce((total, item) => total + item.prix_avec_quantite, 0);
 };
@@ -26,16 +25,13 @@ export const useLocalCartArticlesClient = create<LocalCartClient>((set) => ({
   prix_total: 0,
   errorLocal: false,
 
-  loadCart: async () => {
+  loadCart: () => {
     try {
-      // taking cart from asyncstorage and set cart to state
-      const dataCart = await AsyncStorage.getItem("@cart");
+      const dataCart = storage.getString("@cart");
       const cart = dataCart ? JSON.parse(dataCart) : [];
       const prix_total = calculateTotal(cart);
-      set({ cart, prix_total, errorLocal: false });
-
-      const id_panier = await AsyncStorage.getItem("@id_panier");
-      set({ id_panier: id_panier || "" });
+      const id_panier = storage.getString("@id_panier") || "";
+      set({ cart, prix_total, id_panier, errorLocal: false });
     } catch (error) {
       console.log("Erreur loadCart():", error);
       set({ errorLocal: true });
@@ -46,9 +42,9 @@ export const useLocalCartArticlesClient = create<LocalCartClient>((set) => ({
     set({ errorLocal: val });
   },
 
-  setCart: async (cart: articleItemCart[]) => {
+  setCart: (cart: articleItemCart[]) => {
     try {
-      await AsyncStorage.setItem("@cart", JSON.stringify(cart));
+      storage.set("@cart", JSON.stringify(cart));
       const prix_total = calculateTotal(cart);
       set({ cart, prix_total });
     } catch (error) {
@@ -61,10 +57,10 @@ export const useLocalCartArticlesClient = create<LocalCartClient>((set) => ({
     set({ prix_total });
   },
 
-  resetCart: async () => {
+  resetCart: () => {
     try {
-      await AsyncStorage.removeItem("@cart");
-      await AsyncStorage.removeItem("@id_panier");
+      storage.remove("@cart");
+      storage.remove("@id_panier");
       set({ cart: [], prix_total: 0, id_panier: "", errorLocal: false });
     } catch (error) {
       console.log("Erreur resetCart():", error);
@@ -72,9 +68,9 @@ export const useLocalCartArticlesClient = create<LocalCartClient>((set) => ({
     }
   },
 
-  setIdPanier: async (id: string) => {
+  setIdPanier: (id: string) => {
     try {
-      await AsyncStorage.setItem("@id_panier", id);
+      storage.set("@id_panier", id);
       set({ id_panier: id });
     } catch (error) {
       console.log("Erreur setIdPanier():", error);

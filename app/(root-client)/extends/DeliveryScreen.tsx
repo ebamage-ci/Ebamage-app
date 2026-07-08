@@ -109,13 +109,13 @@ const DeliveryScreen = () => {
         data: datasOrder,
       },
       {
-        onSuccess: async (data) => {
+        onSuccess: (data) => {
           // console.log(
           //   "-- data order success -----> ",
           //   JSON.stringify(data.hashid, null, 2)
           // );
 
-          await resetCart();
+          resetCart();
           // console.log("-- id order success -----> ", data.hashid);
           // Utiliser replace pour éviter de revenir sur DeliveryScreen
           router.replace(

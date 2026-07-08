@@ -1,13 +1,13 @@
 import { IOrder } from "@/types/ordersClient.type";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storage } from "@/stores/mmkv";
 import { create } from "zustand";
 
 interface LocalOrdersClient {
   orders: IOrder[];
   errorLocal: boolean;
-  setOrders: (orders: IOrder[]) => Promise<void>;
-  loadOrders: () => Promise<void>;
-  resetOrders: () => Promise<void>;
+  setOrders: (orders: IOrder[]) => void;
+  loadOrders: () => void;
+  resetOrders: () => void;
   setErrorLocal: (val: boolean) => void;
 }
 
@@ -19,10 +19,10 @@ export const useLocalOrdersClient = create<LocalOrdersClient>((set) => ({
     set({ errorLocal: val });
   },
 
-  setOrders: async (orders: IOrder[]) => {
+  setOrders: (orders: IOrder[]) => {
     try {
       const limited = Array.isArray(orders) ? orders.slice(0, 10) : [];
-      await AsyncStorage.setItem("@orders", JSON.stringify(limited));
+      storage.set("@orders", JSON.stringify(limited));
       set({ orders: limited });
     } catch (error) {
       console.log("Erreur setOrders():", error);
@@ -30,9 +30,9 @@ export const useLocalOrdersClient = create<LocalOrdersClient>((set) => ({
     }
   },
 
-  loadOrders: async () => {
+  loadOrders: () => {
     try {
-      const data = await AsyncStorage.getItem("@orders");
+      const data = storage.getString("@orders");
       const orders = data ? JSON.parse(data) : [];
       set({ orders, errorLocal: false });
     } catch (error) {
@@ -41,9 +41,9 @@ export const useLocalOrdersClient = create<LocalOrdersClient>((set) => ({
     }
   },
 
-  resetOrders: async () => {
+  resetOrders: () => {
     try {
-      await AsyncStorage.removeItem("@orders");
+      storage.remove("@orders");
       set({ orders: [] });
     } catch (error) {
       console.log("Erreur resetOrders():", error);

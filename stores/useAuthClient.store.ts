@@ -1,68 +1,47 @@
 import { IUserStorage } from "@/types/authclient.type";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storage } from "@/stores/mmkv";
 import { create } from "zustand";
 
 interface AuthClientStore {
   user: IUserStorage | null;
   isConnected: boolean;
-  setUser: (user: IUserStorage) => Promise<void>;
-  setIsConnected: (isConnected: boolean) => Promise<void>;
-  loadAuth: () => Promise<void>;
-  reset: () => Promise<void>;
-  logout: () => Promise<void>;
+  setUser: (user: IUserStorage) => void;
+  setIsConnected: (isConnected: boolean) => void;
+  loadAuth: () => void;
+  reset: () => void;
+  logout: () => void;
 }
 
 export const useAuthClientStore = create<AuthClientStore>((set) => ({
   user: null,
   isConnected: false,
 
-  setUser: async (user) => {
-    try {
-      await AsyncStorage.setItem("@user", JSON.stringify(user));
-      set({ user });
-    } catch (error) {
-      console.log("Erreur setUser():", error);
-    }
+  setUser: (user) => {
+    storage.set("@user", JSON.stringify(user));
+    set({ user });
   },
 
-  setIsConnected: async (isConnected) => {
-    try {
-      await AsyncStorage.setItem("@isConnected", isConnected.toString());
-      set({ isConnected });
-    } catch (error) {
-      console.log("Erreur setIsConnected():", error);
-    }
+  setIsConnected: (isConnected) => {
+    storage.set("@isConnected", isConnected.toString());
+    set({ isConnected });
   },
 
-  loadAuth: async () => {
-    try {
-      const userData = await AsyncStorage.getItem("@user");
-
-      // console.log("-- userData -- ", userData);
-
-      const user = userData ? JSON.parse(userData) : null;
-      const isConnectedData = await AsyncStorage.getItem("@isConnected");
-      const isConnected = isConnectedData === "true";
-
-      set({ user, isConnected });
-    } catch (error) {
-      console.log("Erreur loadAuth():", error);
-    }
+  loadAuth: () => {
+    const userData = storage.getString("@user");
+    const user = userData ? JSON.parse(userData) : null;
+    const isConnectedData = storage.getString("@isConnected");
+    const isConnected = isConnectedData === "true";
+    set({ user, isConnected });
   },
 
-  reset: async () => {
-    try {
-      await AsyncStorage.multiRemove(["@user", "@isConnected"]);
-      set({ user: null, isConnected: false });
-    } catch (error) {
-      console.log("Erreur reset():", error);
-    }
-  },
-
-  logout: async () => {
-    await AsyncStorage.clear();
+  reset: () => {
+    storage.remove("@user");
+    storage.remove("@isConnected");
     set({ user: null, isConnected: false });
-    // router.replace("/auth");
-    // console.log("logout store");
+  },
+
+  logout: () => {
+    storage.clearAll();
+    set({ user: null, isConnected: false });
   },
 }));

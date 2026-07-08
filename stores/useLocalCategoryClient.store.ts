@@ -1,13 +1,13 @@
 import { Category } from "@/types/categoryClient.type";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storage } from "@/stores/mmkv";
 import { create } from "zustand";
 
 interface LocalCategoryClientStore {
   categories: Category[];
   errorLocal: boolean;
-  setCategories: (categories: Category[]) => Promise<void>;
-  loadCategories: () => Promise<void>;
-  resetCategories: () => Promise<void>;
+  setCategories: (categories: Category[]) => void;
+  loadCategories: () => void;
+  resetCategories: () => void;
   setErrorLocal: (val: boolean) => void;
 }
 
@@ -20,9 +20,9 @@ export const useLocalCategoryClientStore = create<LocalCategoryClientStore>(
       set({ errorLocal: val });
     },
 
-    setCategories: async (categories: Category[]) => {
+    setCategories: (categories: Category[]) => {
       try {
-        await AsyncStorage.setItem("@categories", JSON.stringify(categories));
+        storage.set("@categories", JSON.stringify(categories));
         set({ categories });
       } catch (error) {
         console.log("Erreur setCategories():", error);
@@ -30,9 +30,9 @@ export const useLocalCategoryClientStore = create<LocalCategoryClientStore>(
       }
     },
 
-    loadCategories: async () => {
+    loadCategories: () => {
       try {
-        const data = await AsyncStorage.getItem("@categories");
+        const data = storage.getString("@categories");
         const categories = data ? JSON.parse(data) : [];
         set({ categories, errorLocal: false });
       } catch (error) {
@@ -41,9 +41,9 @@ export const useLocalCategoryClientStore = create<LocalCategoryClientStore>(
       }
     },
 
-    resetCategories: async () => {
+    resetCategories: () => {
       try {
-        await AsyncStorage.removeItem("@categories");
+        storage.remove("@categories");
         set({ categories: [] });
       } catch (error) {
         console.log("Erreur resetCategories():", error);

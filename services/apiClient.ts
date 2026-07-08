@@ -25,13 +25,11 @@ apiClient.interceptors.request.use((config) => {
 
 apiClient.interceptors.response.use(
   (response) => response,
-  async (error) => {
+  (error) => {
     const status = error?.response?.status;
 
     if (status === 401) {
-      try {
-        await useAuthClientStore.getState().logout();
-      } catch {}
+      useAuthClientStore.getState().logout();
     }
 
     return Promise.reject(error);

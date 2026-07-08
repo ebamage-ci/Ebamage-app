@@ -47,17 +47,8 @@ export default function RootLayout() {
   useOnlineManager();
 
   useEffect(() => {
-    const prepare = async () => {
-      try {
-        await loadAuth();
-      } catch (e: any) {
-        console.warn("Auth Load Error:", e?.message);
-      } finally {
-        setIsAppReady(true);
-      }
-    };
-
-    prepare();
+    loadAuth();
+    setIsAppReady(true);
   }, [loadAuth]);
 
   // Masquer le splash quand fonts + app prêtes
