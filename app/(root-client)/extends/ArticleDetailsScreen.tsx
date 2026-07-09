@@ -3,7 +3,7 @@ import ArticleActions from "@/components/index/ArticleActions";
 import ChoicesGroup from "@/components/index/ChoicesGroup";
 import ImagesArticleDetails from "@/components/index/ImagesArticleDetails";
 import { useLocalSearchParams } from "expo-router";
-import { useCallback, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -16,8 +16,24 @@ import ArticleList from "@/components/global/ArticleList";
 import Loader from "@/components/global/Loader";
 import ColorsGroup from "@/components/index/ColorsGroup";
 import { useClientFetchArticleDetail } from "@/hooks/useClientFetchArticleDetail";
+import { Variation } from "@/types/articleDetailClient.type";
 import { getDiscount } from "@/utils/getDiscount";
 import { onlineManager } from "@tanstack/react-query";
+
+const VariationItem = memo(({ variation, onVariationChange }: {
+  variation: Variation;
+  onVariationChange: (name: string, value: string) => void;
+}) => {
+  const handleChange = useCallback(
+    (value: string) => onVariationChange(variation.nom_variation, value),
+    [onVariationChange, variation.nom_variation]
+  );
+
+  if (variation?.nom_variation === "color" || variation?.nom_variation.includes("color")) {
+    return <ColorsGroup variation={variation} onVariationChange={handleChange} />;
+  }
+  return <ChoicesGroup variation={variation} onVariationChange={handleChange} />;
+});
 
 const ArticleDetailsScreen = () => {
   const { id } = useLocalSearchParams() as { id: string };
@@ -64,26 +80,13 @@ const ArticleDetailsScreen = () => {
 
         {/** choices ( color & others) */}
         <View>
-          {data?.data.variations.map((variation) =>
-            variation?.nom_variation === "color" ||
-            variation?.nom_variation.includes("color") ? (
-              <ColorsGroup
-                key={variation.nom_variation}
-                variation={variation}
-                onVariationChange={(value) =>
-                  handleVariationChange(variation.nom_variation, value)
-                }
-              />
-            ) : (
-              <ChoicesGroup
-                key={variation.nom_variation}
-                variation={variation}
-                onVariationChange={(value) =>
-                  handleVariationChange(variation.nom_variation, value)
-                }
-              />
-            )
-          )}
+          {data?.data.variations.map((variation) => (
+            <VariationItem
+              key={variation.nom_variation}
+              variation={variation}
+              onVariationChange={handleVariationChange}
+            />
+          ))}
         </View>
 
         {/** title - label */}

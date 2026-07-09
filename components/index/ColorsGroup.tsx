@@ -1,5 +1,5 @@
 import { Variation } from "@/types/articleDetailClient.type";
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 // Composant enfant : ColorItem
@@ -52,12 +52,17 @@ const ColorsGroup = ({
     [onVariationChange]
   );
 
-  // Initialiser la variation sélectionnée
+  const isInitialized = useRef(false);
+
   useEffect(() => {
-    if (onVariationChange && variation.lib_variation.length > 0) {
-      onVariationChange(selectedColor);
+    if (!isInitialized.current) {
+      if (onVariationChange && variation.lib_variation.length > 0) {
+        onVariationChange(variation.lib_variation[0]);
+      }
+      isInitialized.current = true;
     }
-  }, [onVariationChange, selectedColor, variation.lib_variation]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const renderedChoices = useMemo(
     () =>

@@ -1,40 +1,40 @@
-@import 'tailwindcss';
-@import 'uniwind';
+@import "tailwindcss";
+@import "uniwind";
 
 @source "../components/**/*.{js,jsx,ts,tsx}";
 
 @theme {
-  --font-family-montserrat: 'Montserrat-Regular';
-  --font-family-montserrat-regular: 'Montserrat-Regular';
-  --font-family-montserrat-bold: 'Montserrat-Bold';
-  --font-family-montserrat-light: 'Montserrat-Light';
-  --font-family-montserrat-medium: 'Montserrat-Medium';
-  --font-family-montserrat-semibold: 'Montserrat-SemiBold';
-  --font-family-montserrat-extra-bold: 'Montserrat-ExtraBold';
+  --font-montserrat: Montserrat-Regular;
+  --font-montserrat-regular: Montserrat-Regular;
+  --font-montserrat-bold: Montserrat-Bold;
+  --font-montserrat-light: Montserrat-Light;
+  --font-montserrat-medium: Montserrat-Medium;
+  --font-montserrat-semibold: Montserrat-SemiBold;
+  --font-montserrat-extra-bold: Montserrat-ExtraBold;
 
-  --font-family-raleway: 'Raleway-Regular';
-  --font-family-raleway-regular: 'Raleway-Regular';
-  --font-family-raleway-bold: 'Raleway-Bold';
-  --font-family-raleway-light: 'Raleway-Light';
-  --font-family-raleway-medium: 'Raleway-Medium';
-  --font-family-raleway-semibold: 'Raleway-SemiBold';
-  --font-family-raleway-extra-bold: 'Raleway-ExtraBold';
+  --font-raleway: Raleway-Regular;
+  --font-raleway-regular: Raleway-Regular;
+  --font-raleway-bold: Raleway-Bold;
+  --font-raleway-light: Raleway-Light;
+  --font-raleway-medium: Raleway-Medium;
+  --font-raleway-semibold: Raleway-SemiBold;
+  --font-raleway-extra-bold: Raleway-ExtraBold;
 
   --color-primary: #108036;
-  --color-primary-50: #ECFDF5;
-  --color-primary-200: #A7E5BE;
-  --color-primary-300: #5CCB89;
-  --color-primary-400: #34A853;
-  --color-primary-500: #119E40;
+  --color-primary-50: #ecfdf5;
+  --color-primary-200: #a7e5be;
+  --color-primary-300: #5ccb89;
+  --color-primary-400: #34a853;
+  --color-primary-500: #119e40;
 
-  --color-gray-50: #FDFDFD;
-  --color-gray-100: #F7F7F7;
-  --color-gray-200: #F3F3F3;
-  --color-gray-300: #B6B6B6;
-  --color-gray-400: #A8A8A9;
+  --color-gray-50: #fdfdfd;
+  --color-gray-100: #f7f7f7;
+  --color-gray-200: #f3f3f3;
+  --color-gray-300: #b6b6b6;
+  --color-gray-400: #a8a8a9;
   --color-gray-500: #676767;
-  --color-gray-600: #4B4B4B;
-  --color-gray-700: #3D3D3D;
-  --color-gray-800: #2D2D2D;
-  --color-gray-900: #1A1A1A;
+  --color-gray-600: #4b4b4b;
+  --color-gray-700: #3d3d3d;
+  --color-gray-800: #2d2d2d;
+  --color-gray-900: #1a1a1a;
 }

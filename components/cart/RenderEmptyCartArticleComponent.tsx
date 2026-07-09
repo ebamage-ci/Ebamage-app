@@ -43,7 +43,7 @@ export const RenderEmptyCartArticleComponent = ({
   }
 
   return (
-    <Text className="text-center">
+    <Text className="text-center font-raleway-semibold">
       Aucun article dans votre panier, pensez à faire des courses .
     </Text>
   );

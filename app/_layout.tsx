@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
 
@@ -23,8 +23,6 @@ export const queryClient = new QueryClient({
 });
 
 export default function RootLayout() {
-  const [isAppReady, setIsAppReady] = useState(false);
-
   const [fontsLoaded] = useFonts({
     "Montserrat-Bold": require("../assets/fonts/Montserrat-Bold.ttf"),
     "Montserrat-Regular": require("../assets/fonts/Montserrat-Regular.ttf"),
@@ -48,18 +46,15 @@ export default function RootLayout() {
 
   useEffect(() => {
     loadAuth();
-    setIsAppReady(true);
   }, [loadAuth]);
 
-  // Masquer le splash quand fonts + app prêtes
   useEffect(() => {
-    if (fontsLoaded && isAppReady) {
+    if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, isAppReady]);
+  }, [fontsLoaded]);
 
-  // Tant que ce n’est pas prêt, on ne render rien
-  if (!fontsLoaded || !isAppReady) {
+  if (!fontsLoaded) {
     return null;
   }
 
