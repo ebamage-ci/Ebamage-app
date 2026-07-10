@@ -10,14 +10,15 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/icons/ebamage.png",
+      "image": "./assets/icons/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "icon": "./assets/icons/ios-icon.png",
       "supportsTablet": true,
       "splash": {
-        "image": "./assets/icons/ebamage.png",
+        "image": "./assets/icons/icon.png",
         "resizeMode": "contain",
         "backgroundColor": "#ffffff"
       },
@@ -27,6 +28,7 @@
       }
     },
     "android": {
+      "icon": "./assets/icons/android-icon.png",
       "edgeToEdgeEnabled": true,
       "package": "com.devjudicael.ebamage",
       "googleServicesFile": "./google-services.json"
@@ -41,12 +43,12 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/icons/ebamage.png",
-          "imageWidth": 170,
+          "image": "./assets/icons/icon.png",
+          "imageWidth": 150,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
           "dark": {
-            "image": "./assets/icons/ebamage.png",
+            "image": "./assets/icons/icon.png",
             "backgroundColor": "#ffffff"
           }
         }

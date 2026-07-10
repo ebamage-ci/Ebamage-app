@@ -26,11 +26,11 @@ const ShopDetailsScreen = () => {
       header: () => (
         <HeaderShopDetail
           keyword={keyword as string}
-          sharelink={data?.sharelink}
+          share_link={data?.share_link}
         />
       ),
     });
-  }, [navigation, keyword, data?.sharelink]);
+  }, [navigation, keyword, data?.share_link]);
 
   return (
     <ScrollView

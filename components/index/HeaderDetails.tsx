@@ -3,14 +3,14 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { router } from "expo-router";
 import { Share, Text, TouchableOpacity, View } from "react-native";
 type HeaderDetailsProps = {
-  sharelink?: string;
+  share_link?: string;
 };
 
-const HeaderDetails = ({ sharelink }: HeaderDetailsProps) => {
+const HeaderDetails = ({ share_link }: HeaderDetailsProps) => {
   const handleShare = async () => {
-    if (!sharelink) return;
+    if (!share_link) return;
     await Share.share({
-      message: sharelink,
+      message: share_link,
     });
   };
 
@@ -26,7 +26,7 @@ const HeaderDetails = ({ sharelink }: HeaderDetailsProps) => {
         </View>
 
         {/** right */}
-        {sharelink && (
+        {share_link && (
           <View className="justify-center items-center">
             <TouchableOpacity
               className="bg-[#F2F2F2] rounded-full p-2"

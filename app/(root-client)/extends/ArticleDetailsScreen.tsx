@@ -61,9 +61,9 @@ const ArticleDetailsScreen = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      header: () => <HeaderDetails sharelink={data?.data?.sharelink} />,
+      header: () => <HeaderDetails share_link={data?.data?.share_link} />,
     });
-  }, [navigation, data?.data?.sharelink]);
+  }, [navigation, data?.data?.share_link]);
 
   const handleVariationChange = useCallback(
     (variationName: string, variationValue: string) => {

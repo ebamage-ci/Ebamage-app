@@ -5,17 +5,17 @@ import { Share, Text, TouchableOpacity, View } from "react-native";
 
 type HeaderShopDetailProps = {
   keyword?: string;
-  sharelink?: string;
+  share_link?: string;
 };
 
 const HeaderShopDetail = ({
   keyword = "Détail boutique",
-  sharelink,
+  share_link,
 }: HeaderShopDetailProps) => {
   const handleShare = async () => {
-    if (!sharelink) return;
+    if (!share_link) return;
     await Share.share({
-      message: sharelink,
+      message: share_link,
     });
   };
 
@@ -31,7 +31,7 @@ const HeaderShopDetail = ({
         </View>
 
         {/** right */}
-        {sharelink && (
+        {share_link && (
           <View className="justify-center items-center">
             <TouchableOpacity
               className="bg-[#F2F2F2] rounded-full p-2"

@@ -26,7 +26,7 @@ export interface IArticleDetailResponseClient {
     old_price?: number;
     nom_btq: string;
     variations: Variation[];
-    sharelink?: string;
+    share_link?: string;
     stock: number;
   };
 
