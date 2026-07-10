@@ -2,7 +2,10 @@ import { IUserSignInClient } from "@/types/authclient.type";
 import * as z from "zod/v4";
 
 // schemas
-const emailSchema = z.email("Veuillez entrer un mail valide");
+const loginSchema = z
+  .string()
+  .trim()
+  .min(1, "Veuillez entrer votre email ou numéro de téléphone");
 
 const passwordSchema = z
   .string()
@@ -10,19 +13,19 @@ const passwordSchema = z
   .min(8, "Veuillez entrer un mot de passe d'au moins 8 caractères");
 
 const useSignInValidationClient = (user: IUserSignInClient) => {
-  const { email_clt, password_clt } = user;
+  const { login, password_clt } = user;
 
-  const { success: isMailValid, error: mailError } =
-    emailSchema.safeParse(email_clt);
+  const { success: isLoginValid, error: loginError } =
+    loginSchema.safeParse(login);
 
   const { success: isPasswordValid, error: passwordError } =
     passwordSchema.safeParse(password_clt);
 
-  const isUserDatasValid = isMailValid && isPasswordValid;
+  const isUserDatasValid = isLoginValid && isPasswordValid;
 
   return {
-    isMailValid,
-    mailError: mailError?.issues[0].message,
+    isLoginValid,
+    loginError: loginError?.issues[0].message,
 
     isPasswordValid,
     passwordError: passwordError?.issues[0].message,

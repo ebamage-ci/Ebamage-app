@@ -1,7 +1,8 @@
+import HeaderShopDetail from "@/components/index/HeaderShopDetail";
 import ArticlesShopItems from "@/components/shop/ArticlesShopItems";
 import useClientFetchArticlesShop from "@/hooks/useClientFetchArticlesShop";
-import { useLocalSearchParams } from "expo-router";
-import { useState } from "react";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import { useEffect, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -16,8 +17,20 @@ const ShopDetailsScreen = () => {
   const { id, keyword, image, description_btq } = useLocalSearchParams();
 
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigation = useNavigation();
 
   const { data, isLoading, error } = useClientFetchArticlesShop(id as string);
+
+  useEffect(() => {
+    navigation.setOptions({
+      header: () => (
+        <HeaderShopDetail
+          keyword={keyword as string}
+          sharelink={data?.sharelink}
+        />
+      ),
+    });
+  }, [navigation, keyword, data?.sharelink]);
 
   return (
     <ScrollView

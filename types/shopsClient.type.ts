@@ -9,4 +9,5 @@ export interface IShopsResponseClient {
 export interface IArticlesShopResponseClient {
   success: boolean;
   data: IArticle[];
+  sharelink?: string;
 }

@@ -1,8 +1,19 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { router } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
-const HeaderDetails = () => {
+import { Share, Text, TouchableOpacity, View } from "react-native";
+type HeaderDetailsProps = {
+  sharelink?: string;
+};
+
+const HeaderDetails = ({ sharelink }: HeaderDetailsProps) => {
+  const handleShare = async () => {
+    if (!sharelink) return;
+    await Share.share({
+      message: sharelink,
+    });
+  };
+
   return (
     <View className="bg-[#F9F9F9] p-5">
       <View className="flex-row justify-between items-center">
@@ -15,19 +26,19 @@ const HeaderDetails = () => {
         </View>
 
         {/** right */}
-        <View className=" justify-center items-center">
-          <TouchableOpacity
-            className="bg-[#F2F2F2] rounded-full p-2"
-            onPress={() => {
-              router.push("/(root-client)/(tabs)/cart");
-            }}>
-            <MaterialCommunityIcons
-              name="cart-outline"
-              size={24}
-              color="black"
-            />
-          </TouchableOpacity>
-        </View>
+        {sharelink && (
+          <View className="justify-center items-center">
+            <TouchableOpacity
+              className="bg-[#F2F2F2] rounded-full p-2"
+              onPress={handleShare}>
+              <MaterialCommunityIcons
+                name="share-outline"
+                size={24}
+                color="#108036"
+              />
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
   );

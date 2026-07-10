@@ -21,7 +21,7 @@ import { useAuthClientStore } from "@/stores/useAuthClient.store";
 import { router } from "expo-router";
 
 export default function ShopSignupScreen() {
-  const [email, setEmail] = useState("");
+  const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
   const { setIsConnected, setUser } = useAuthClientStore();
@@ -32,19 +32,19 @@ export default function ShopSignupScreen() {
 
   // schemas
   const {
-    isMailValid,
-    mailError,
+    isLoginValid,
+    loginError,
     isPasswordValid,
     passwordError,
     isUserDatasValid,
   } = useSignInValidationClient({
-    email_clt: email,
+    login: login,
     password_clt: password,
   });
 
   // États pour suivre si les champs ont été touchés
   const [touchedFields, setTouchedFields] = useState({
-    email: false,
+    login: false,
     password: false,
   });
 
@@ -57,10 +57,8 @@ export default function ShopSignupScreen() {
   };
 
   const handleSubmit = () => {
-    // Marquer tous les champs comme touchés pour afficher toutes les erreurs
     setTouchedFields({
-      email: true,
-
+      login: true,
       password: true,
     });
 
@@ -80,9 +78,8 @@ export default function ShopSignupScreen() {
       return;
     }
 
-    //--- validation
     const datas = {
-      email_clt: email,
+      login: login,
       password_clt: password,
     };
 
@@ -144,14 +141,14 @@ export default function ShopSignupScreen() {
             <View className=" justify-center items-center">
               <View>
                 <CustomInput
-                  label="Adresse mail"
-                  value={email}
-                  onChangeText={setEmail}
-                  placeholder="Votre email"
+                  label="Email ou téléphone"
+                  value={login}
+                  onChangeText={setLogin}
+                  placeholder="Votre email ou numéro de téléphone"
                   leftIcon={icons.user}
-                  error={touchedFields.email && !isMailValid}
-                  errorMsg={mailError}
-                  onBlur={() => handleBlur("email")}
+                  error={touchedFields.login && !isLoginValid}
+                  errorMsg={loginError}
+                  onBlur={() => handleBlur("login")}
                 />
 
                 <CustomInput

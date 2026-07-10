@@ -3,7 +3,7 @@ import ArticleActions from "@/components/index/ArticleActions";
 import ChoicesGroup from "@/components/index/ChoicesGroup";
 import ImagesArticleDetails from "@/components/index/ImagesArticleDetails";
 import { useLocalSearchParams } from "expo-router";
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -15,25 +15,39 @@ import {
 import ArticleList from "@/components/global/ArticleList";
 import Loader from "@/components/global/Loader";
 import ColorsGroup from "@/components/index/ColorsGroup";
+import HeaderDetails from "@/components/index/HeaderDetails";
 import { useClientFetchArticleDetail } from "@/hooks/useClientFetchArticleDetail";
 import { Variation } from "@/types/articleDetailClient.type";
 import { getDiscount } from "@/utils/getDiscount";
 import { onlineManager } from "@tanstack/react-query";
+import { useNavigation } from "expo-router";
 
-const VariationItem = memo(({ variation, onVariationChange }: {
-  variation: Variation;
-  onVariationChange: (name: string, value: string) => void;
-}) => {
-  const handleChange = useCallback(
-    (value: string) => onVariationChange(variation.nom_variation, value),
-    [onVariationChange, variation.nom_variation]
-  );
+const VariationItem = memo(
+  ({
+    variation,
+    onVariationChange,
+  }: {
+    variation: Variation;
+    onVariationChange: (name: string, value: string) => void;
+  }) => {
+    const handleChange = useCallback(
+      (value: string) => onVariationChange(variation.nom_variation, value),
+      [onVariationChange, variation.nom_variation],
+    );
 
-  if (variation?.nom_variation === "color" || variation?.nom_variation.includes("color")) {
-    return <ColorsGroup variation={variation} onVariationChange={handleChange} />;
-  }
-  return <ChoicesGroup variation={variation} onVariationChange={handleChange} />;
-});
+    if (
+      variation?.nom_variation === "color" ||
+      variation?.nom_variation.includes("color")
+    ) {
+      return (
+        <ColorsGroup variation={variation} onVariationChange={handleChange} />
+      );
+    }
+    return (
+      <ChoicesGroup variation={variation} onVariationChange={handleChange} />
+    );
+  },
+);
 
 const ArticleDetailsScreen = () => {
   const { id } = useLocalSearchParams() as { id: string };
@@ -42,10 +56,14 @@ const ArticleDetailsScreen = () => {
     Record<string, string>
   >({});
 
-  // console.log("--- id Article --- ", id);
-
-  // Récupération des détails de l'article
+  const navigation = useNavigation();
   const { isLoading, isError, data } = useClientFetchArticleDetail(id);
+
+  useEffect(() => {
+    navigation.setOptions({
+      header: () => <HeaderDetails sharelink={data?.data?.sharelink} />,
+    });
+  }, [navigation, data?.data?.sharelink]);
 
   const handleVariationChange = useCallback(
     (variationName: string, variationValue: string) => {
@@ -54,7 +72,7 @@ const ArticleDetailsScreen = () => {
         [variationName]: variationValue,
       }));
     },
-    []
+    [],
   );
 
   if (isLoading) {
@@ -119,7 +137,7 @@ const ArticleDetailsScreen = () => {
         </View>
 
         {/** Price */}
-        <View className="flex-row gap-3 items-center mb-4 ">
+        <View className="flex-row gap-3 items-center mb-2 ">
           {data?.data.old_price && (
             <Text className="text-[#808488] font-raleway-light line-through">
               {data?.data.old_price} FCFA
@@ -133,6 +151,18 @@ const ArticleDetailsScreen = () => {
               {-getDiscount(data?.data.prix, data?.data.old_price)}%
             </Text>
           )}
+        </View>
+
+        {/** Stock */}
+        <View className="mb-4">
+          <Text
+            className={`text-[13px] font-raleway-medium ${
+              (data?.data?.stock ?? 0) > 0 ? "text-primary" : "text-red-500"
+            }`}>
+            {(data?.data?.stock ?? 0) > 0
+              ? `${data?.data?.stock} article${(data?.data?.stock ?? 0) > 1 ? "s" : ""} restant${(data?.data?.stock ?? 0) > 1 ? "s" : ""}`
+              : "Rupture de stock"}
+          </Text>
         </View>
 
         {/** lieu */}

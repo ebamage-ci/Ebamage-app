@@ -1,12 +1,12 @@
 {
   "expo": {
     "name": "Ebamage",
-    "slug": "tdlapp",
+    "slug": "ebamage",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icons/icon.png",
     "jsEngine": "hermes",
-    "scheme": "tdlapp",
+    "scheme": "ebamage",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {

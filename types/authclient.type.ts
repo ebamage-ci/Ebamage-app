@@ -45,7 +45,7 @@ export interface IUserStorage {
 }
 
 export interface IUserSignInClient {
-  email_clt: string;
+  login: string;
   password_clt: string;
 }
 

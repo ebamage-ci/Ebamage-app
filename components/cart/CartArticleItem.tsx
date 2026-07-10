@@ -12,12 +12,12 @@ import {
   View,
 } from "react-native";
 
-import { queryClient } from "@/app/_layout";
 import { useClientDecrementArticleCart } from "@/hooks/useClientDecrementArticleCart";
 import { useClientDeleteArticleCart } from "@/hooks/useClientDeleteArticleCart";
 import { useClientIncrementArticleCart } from "@/hooks/useClientIncrementArticleCart";
 import { useAuthClientStore } from "@/stores/useAuthClient.store";
 import { useLocalCartArticlesClient } from "@/stores/useLocalCartArticlesClient.store";
+import { queryClient } from "@/utils/queryClient";
 
 const CartArticleItem = ({ article }: { article: articleItemCart }) => {
   const { mutate: mutateIncrementArticle, isPending: isPendingIncrement } =
@@ -54,10 +54,10 @@ const CartArticleItem = ({ article }: { article: articleItemCart }) => {
         onError: (error) => {
           Alert.alert(
             "Erreur",
-            error.message || "Impossible d'ajouter l'article au panier"
+            error.message || "Impossible d'ajouter l'article au panier",
           );
         },
-      }
+      },
     );
   }, [
     hashid_panier_item,
@@ -79,10 +79,10 @@ const CartArticleItem = ({ article }: { article: articleItemCart }) => {
         onError: (error) => {
           Alert.alert(
             "Erreur",
-            error.message || "Impossible de diminuer la quantité"
+            error.message || "Impossible de diminuer la quantité",
           );
         },
-      }
+      },
     );
   }, [
     hashid_panier_item,
@@ -104,10 +104,10 @@ const CartArticleItem = ({ article }: { article: articleItemCart }) => {
         onError: (error) => {
           Alert.alert(
             "Erreur",
-            error.message || "Impossible de supprimer l'article"
+            error.message || "Impossible de supprimer l'article",
           );
         },
-      }
+      },
     );
   }, [
     hashid_panier_item,
@@ -150,7 +150,7 @@ const CartArticleItem = ({ article }: { article: articleItemCart }) => {
       variations.map((choice, index) => (
         <ChoiceItem key={index.toString()} choice={choice} />
       )),
-    [variations]
+    [variations],
   );
 
   // ----- rendu -----

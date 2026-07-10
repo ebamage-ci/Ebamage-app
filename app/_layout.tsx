@@ -2,8 +2,9 @@ import "@/app/global.css";
 import { useAppFocusManager } from "@/hooks/useAppFocusManager";
 import { useOnlineManager } from "@/hooks/useOnlineManager";
 import { useAuthClientStore } from "@/stores/useAuthClient.store";
+import { queryClient } from "@/utils/queryClient";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -13,14 +14,6 @@ import "react-native-reanimated";
 
 // Empêche le splash screen de se cacher automatiquement
 SplashScreen.preventAutoHideAsync();
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 2,
-    },
-  },
-});
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({

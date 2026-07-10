@@ -70,8 +70,9 @@ export const useLocalCartArticlesClient = create<LocalCartClient>((set) => ({
 
   setIdPanier: (id: string) => {
     try {
-      storage.set("@id_panier", id);
-      set({ id_panier: id });
+      const value = id != null ? String(id) : "";
+      storage.set("@id_panier", value);
+      set({ id_panier: value });
     } catch (error) {
       console.log("Erreur setIdPanier():", error);
       set({ errorLocal: true });
