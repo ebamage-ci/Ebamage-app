@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Ebamage",
-    "slug": "ebamage",
+    "slug": "tdlapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icons/icon.png",
@@ -65,6 +65,7 @@
       "eas": {
         "projectId": "2cf34f1f-5f9b-49c8-8a50-7abd93628c97"
       }
-    }
+    },
+    "owner": "devjudicael"
   }
 }
