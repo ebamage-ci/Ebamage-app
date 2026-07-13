@@ -32,6 +32,9 @@ import edit from "@/assets/icons/edit.png";
 import user2 from "@/assets/icons/user2.png";
 import wallet from "@/assets/icons/wallet.png";
 
+//auth
+import iconlogo from "@/assets/icons/icon.png";
+
 export default {
   hometab,
   hometabFocused,
@@ -60,4 +63,5 @@ export default {
   wallet,
   user2,
   shoptab,
+  iconlogo,
 };

@@ -15,7 +15,9 @@ const Header = ({
         <View className="  justify-center">
           <TouchableOpacity
             className=" justify-center  "
-            onPress={() => router.back()}>
+            onPress={() =>
+              router.canGoBack() ? router.back() : router.replace("/")
+            }>
             <Ionicons name="chevron-back" size={24} color="black" />
           </TouchableOpacity>
         </View>

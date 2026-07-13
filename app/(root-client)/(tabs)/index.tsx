@@ -92,7 +92,7 @@ export default function HomeScreen() {
         paddingBottom: 20,
       }}>
       {/* Carousel */}
-      <View className="flex-[0.3] ">
+      <View>
         <CarouselOffers />
       </View>
 

@@ -1,6 +1,8 @@
+import { Image } from "expo-image";
 import { Text, View } from "react-native";
 
 import { CustomButton } from "@/components/global/CustomButton";
+import icons from "@/constants/icons";
 import { useRouter } from "expo-router";
 
 export default function SignupMainScreen() {
@@ -16,9 +18,13 @@ export default function SignupMainScreen() {
 
   return (
     <View className="bg-white h-full items-center justify-center p-2">
-      <Text className="font-raleway-extra-bold text-[45px] ">Ebamage</Text>
+      <Image
+        source={icons.iconlogo}
+        style={{ width: 200, height: 200 }}
+        contentFit="contain"
+      />
 
-      <Text className=" text-center pt-12 font-raleway-bold text-[36px] leading-[43px]">
+      <Text className=" text-center pt-12 font-raleway-bold text-[36px] ">
         Bienvenue
       </Text>
 

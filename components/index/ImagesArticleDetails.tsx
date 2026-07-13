@@ -15,7 +15,9 @@ import Carousel, {
 import ImageArticleItem from "./ImageArticleItem";
 //
 // const data = [...new Array(3).keys()];
-const width = Dimensions.get("window").width - 35;
+const screenWidth = Dimensions.get("window").width;
+const width = screenWidth - 35;
+const height = width * 0.75;
 
 // MEMO du composant enfant
 const MemoizedImageArticleItem = React.memo(ImageArticleItem);
@@ -71,7 +73,7 @@ function ImagesArticleDetails({ images }: carouselProps) {
       <Carousel
         ref={ref}
         width={width}
-        height={250}
+        height={height}
         autoPlayInterval={4000}
         data={images}
         loop={images.length > 1}
@@ -79,12 +81,7 @@ function ImagesArticleDetails({ images }: carouselProps) {
         snapEnabled={false}
         onProgressChange={progress}
         overscrollEnabled
-        style={{ gap: 30 }}
-        containerStyle={{
-          gap: 30,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        style={{ alignSelf: "center" }}
         renderItem={renderItem}
       />
 
@@ -121,6 +118,7 @@ const styles = StyleSheet.create({
   wrapper: {
     position: "relative",
     justifyContent: "center",
+    alignItems: "center",
     width: "100%",
   },
   button: {
@@ -128,7 +126,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
     width: 40,
     height: 40,
-    top: "40%",
+    top: "45%",
     backgroundColor: "#BBBBBB",
     borderRadius: 20,
     justifyContent: "center",

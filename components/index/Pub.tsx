@@ -9,7 +9,7 @@ const Pub = ({ pub }: { pub: IPub }) => {
     <View style={styles.container}>
       <Image
         style={styles.image}
-        resizeMode="cover"
+        resizeMode="contain"
         source={image_pub ? { uri: image_pub } : images.pub}
       />
     </View>
@@ -18,12 +18,13 @@ const Pub = ({ pub }: { pub: IPub }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     borderRadius: 8,
-    marginVertical: 10,
+    overflow: "hidden",
   },
   image: {
     width: "100%",
-    height: 180,
+    height: "100%",
     borderRadius: 8,
   },
 });

@@ -92,7 +92,7 @@ const ArticleDetailsScreen = () => {
       }}>
       <View style={styles.container} className="px-5 py-2 ">
         {/** carousel catalog */}
-        <View className="h-[271px]">
+        <View>
           <ImagesArticleDetails images={data?.data?.images ?? []} />
         </View>
 

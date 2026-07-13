@@ -9,7 +9,9 @@ import Carousel, {
 } from "react-native-reanimated-carousel";
 import Pub from "./Pub";
 
-const width = Dimensions.get("window").width - 35;
+const screenWidth = Dimensions.get("window").width;
+const width = screenWidth - 35;
+const height = width * 0.55;
 
 // MEMO du composant enfant
 const MemoizedPub = memo(Pub);
@@ -50,7 +52,7 @@ function CarouselOffers() {
       <Carousel
         ref={ref}
         width={width}
-        height={200}
+        height={height}
         autoPlayInterval={4000}
         data={data?.data || []}
         loop
@@ -59,12 +61,7 @@ function CarouselOffers() {
         snapEnabled={false}
         onProgressChange={progress}
         overscrollEnabled
-        style={{ gap: 30 }}
-        containerStyle={{
-          gap: 30,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        style={{ alignSelf: "center" }}
         renderItem={renderItem}
       />
 
@@ -93,7 +90,9 @@ const styles = StyleSheet.create({
   wrapper: {
     position: "relative",
     justifyContent: "center",
+    alignItems: "center",
     width: "100%",
+    paddingVertical: 10,
   },
   button: {
     position: "absolute",

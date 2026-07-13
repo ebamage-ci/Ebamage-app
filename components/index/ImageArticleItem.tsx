@@ -6,7 +6,7 @@ const ImageArticleItem = ({ imageUrl }: { imageUrl: string }) => {
     <View style={styles.container}>
       <Image
         style={styles.image}
-        resizeMode="cover"
+        resizeMode="contain"
         source={imageUrl ? { uri: imageUrl } : images.imgarticleitem}
       />
     </View>
@@ -15,14 +15,14 @@ const ImageArticleItem = ({ imageUrl }: { imageUrl: string }) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 8,
-    marginVertical: 10,
-    width: "100%",
+    flex: 1,
+    borderRadius: 12,
+    overflow: "hidden",
   },
   image: {
     width: "100%",
     height: "100%",
-    borderRadius: 8,
+    borderRadius: 12,
   },
 });
 

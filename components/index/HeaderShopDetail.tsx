@@ -24,7 +24,10 @@ const HeaderShopDetail = ({
       <View className="flex-row justify-between items-center">
         {/** left */}
         <View className="flex-row justify-center items-center gap-6">
-          <TouchableOpacity onPress={() => router.back()}>
+          <TouchableOpacity
+            onPress={() =>
+              router.canGoBack() ? router.back() : router.replace("/")
+            }>
             <Ionicons name="chevron-back" size={24} color="black" />
           </TouchableOpacity>
           <Text className="font-raleway-semibold text-[20px]">{keyword}</Text>
